@@ -3,6 +3,9 @@ from static.forms.contact import send_email,is_valid
 from datetime import datetime
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
+import smtplib,ssl
+from email.message import EmailMessage
+import requests
 
 
 uri = "mongodb+srv://dataanalysis138:Himanshu21303066%40@himanshu.t24iuti.mongodb.net/?retryWrites=true&w=majority"
