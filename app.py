@@ -54,14 +54,14 @@ def contact():
         message = request.form['message']
         sent = False
         if is_valid(email):
-            database = client.get_database("Contact")
-            collection = database.get_collection("users")
+            # database = client.get_database("Contact")
+            # collection = database.get_collection("users")
             
-            if collection.find_one(filter={'email' : f'{email}'}) == None:
-                collection.insert_one( {'date_time' : f'{datetime.now()}' , 'name' : f'{name}' , 'email' : f'{email}' , 'subject' : f'{subject}' , 'message' : f'{message}' } )
-                sent = send_email(name,email,subject,message,other=True)
-            else:
-                sent = 'old'
+            # if collection.find_one(filter={'email' : f'{email}'}) == None:
+            #     collection.insert_one( {'date_time' : f'{datetime.now()}' , 'name' : f'{name}' , 'email' : f'{email}' , 'subject' : f'{subject}' , 'message' : f'{message}' } )
+            sent = send_email(name,email,subject,message,other=True)
+            # else:
+            #     sent = 'old'
             return render_template("contact/contact_result.html",value=sent)
         else:
             return render_template("contact/contact_result.html",value=sent)
