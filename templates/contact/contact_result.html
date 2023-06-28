@@ -1,0 +1,69 @@
+{% extends "main/layout.html" %}
+{% block body %}
+
+<main id="main">
+
+    <!-- ======= Breadcrumbs Section ======= -->
+    <section class="breadcrumbs">
+        <div class="container">
+
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>CONTACT US</h2>
+                <ol>
+                    <li><a href="/">Home</a></li>
+                    <li>Contact</li>
+                </ol>
+            </div>
+
+        </div>
+    </section><!-- End Breadcrumbs Section -->
+
+    <section class="inner-page">
+        <div class="container">
+            {% if value == True %}
+                <h1 style="text-align: center;font-weight: bold;">
+                    &#129321
+                </h1>
+                <h1 style="text-align: center;font-weight: bold;">
+                    SUCCESSFULL !<br><br>
+                </h1>
+                <h3 style="text-align: center;">
+                    <br>Your Message Has Been Sent To Our Customer Care
+                </h3>
+                <p style="text-align: center;">
+                    Our Executives Will Get In Touch With You Soon <br><br>
+                </p>
+                <h3 style="text-align: center;">
+                    <br>Thanks For Contacting US !<br><br>
+                </h3>
+            {% elif value == 'old' %}
+                <h1 style="text-align: center;font-weight: bold;">
+                    &#128533
+                </h1>
+                <h1 style="text-align: center;font-weight: bold;">
+                    Your Query Is Already Submitted !<br><br>
+                </h1>
+                <h3 style="text-align: center;">
+                    <br>Please Wait Till Our Customer Care Solves Your First Query <br><br>
+                </h3>
+                <h3 style="text-align: center;">
+                    <br>PLEASE TRY AGAIN LATER !<br><br>
+            {% else %}
+                <h1 style="text-align: center;font-weight: bold;">
+                    &#128533
+                </h1>
+                <h1 style="text-align: center;font-weight: bold;">
+                    UNSUCCESSFULL !<br><br>
+                </h1>
+                <h3 style="text-align: center;">
+                    <br>Your Message Has Not Sent To Our Customer Care. Please Provide Valid Email Address For Contacting Us <br><br>
+                </h3>
+                <h3 style="text-align: center;">
+                    <br>PLEASE TRY AGAIN LATER !<br><br>
+                </h3>
+            {% endif %}
+        </div>
+    </section>
+
+</main><!-- End #main -->
+{% endblock %}

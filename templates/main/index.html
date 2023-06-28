@@ -1,0 +1,919 @@
+{% extends "main/layout.html" %}
+
+
+{% block body %}
+<!-- ======= Hero Section ======= -->
+<section id="hero" class="d-flex align-items-center">
+
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 pt-5 pt-lg-0 order-2 order-lg-1 d-flex flex-column justify-content-center">
+        <h1 data-aos="fade-up">Grow your business with Data Analysis</h1>
+        <h2 data-aos="fade-up" data-aos-delay="400">We are a team of talented Data Analysts, making sense of the World through the power of Data
+        </h2>
+        <div data-aos="fade-up" data-aos-delay="800">
+          <a href="#about" class="btn-get-started scrollto">Get Started</a>
+        </div>
+      </div>
+      <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="fade-left" data-aos-delay="200">
+        <img src = "{{ url_for('static',filename = 'assets/img/hero-img.jpg')}}" class="img-fluid animated" alt="">
+      </div>
+    </div>
+  </div>
+
+</section><!-- End Hero -->
+
+<main id="main">
+
+  <!-- ======= Clients Section ======= -->
+  <section id="clients" class="clients">
+    <div class="container">
+
+      <div class="row">
+
+        <div class="col-lg-2 col-md-4 col-6">
+          <a href="https://www.python.org " target="_blank" rel="noopener noreferrer">
+          <img src = "{{ url_for('static',filename = 'assets/img/clients/client-1.png')}}" class="img-fluid" alt="" data-aos="zoom-in"></a>
+        </div>
+
+        <div class="col-lg-2 col-md-4 col-6">
+          <a href="https://powerbi.microsoft.com/en-au/" target="_blank" rel="noopener noreferrer">
+          <img src = "{{ url_for('static',filename = 'assets/img/clients/client-2.png')}}" class="img-fluid" alt="" data-aos="zoom-in" data-aos-delay="100"></a>
+        </div>
+
+        <div class="col-lg-2 col-md-4 col-6">
+          <a href="https://www.tableau.com" target="_blank" rel="noopener noreferrer">
+          <img src = "{{ url_for('static',filename = 'assets/img/clients/client-3.png')}}" class="img-fluid" alt="" data-aos="zoom-in" data-aos-delay="200"></a>
+        </div>
+
+        <div class="col-lg-2 col-md-4 col-6">
+          <a href="https://www.tensorflow.org" target="_blank" rel="noopener noreferrer">
+          <img src = "{{ url_for('static',filename = 'assets/img/clients/client-4.png')}}" class="img-fluid" alt="" data-aos="zoom-in" data-aos-delay="300"></a>
+        </div>
+
+        <div class="col-lg-2 col-md-4 col-6">
+          <a href="https://pandas.pydata.org" target="_blank" rel="noopener noreferrer">
+          <img src = "{{ url_for('static',filename = 'assets/img/clients/client-5.png')}}" class="img-fluid" alt="" data-aos="zoom-in" data-aos-delay="400"></a>
+        </div>
+
+        <div class="col-lg-2 col-md-4 col-6">
+          <a href="https://numpy.org" target="_blank" rel="noopener noreferrer">
+          <img src = "{{ url_for('static',filename = 'assets/img/clients/client-6.png')}}" class="img-fluid" alt="" data-aos="zoom-in" data-aos-delay="500"></a>
+        </div>
+
+      </div>
+
+    </div>
+  </section><!-- End Clients Section -->
+
+  <!-- ======= About Us Section ======= -->
+  <section id="about" class="about">
+    <div class="container">
+
+      <div class="section-title" data-aos="fade-up">
+        <h2>About Us</h2>
+      </div>
+
+      <div class="row content">
+        <div class="col-lg-6" data-aos="fade-up" data-aos-delay="150">
+          <p>
+            We are a leading data analysis company dedicated to unlocking the power of data and transforming it into actionable insights.
+          </p>
+          <ul>
+            <li><i class="ri-check-double-line"></i> As a trusted data analysis company, we prioritize data privacy and security.</li>
+            <li><i class="ri-check-double-line"></i> We prioritize accuracy, reliability, and efficiency in our analytical processes.</li>
+            <li><i class="ri-check-double-line"></i> We specialize in data cleansing, modeling, visualization, and predictive analytics, among other areas.</li>
+          </ul>
+        </div>
+        <div class="col-lg-6 pt-4 pt-lg-0" data-aos="fade-up" data-aos-delay="300">
+          <p>
+            Collaboration is at the heart of our approach.
+            Whether you are looking to optimize operations, enhance customer experiences, or gain a competitive edge, Data Analysis With Himanshu is here to help. 
+            Join us on this data-driven journey and unlock the true potential of your organization with our exceptional data analysis services.
+          </p>
+          <a href="#" class="btn-learn-more">Learn More</a>
+        </div>
+      </div>
+
+    </div>
+  </section><!-- End About Us Section -->
+
+  <!-- ======= Counts Section ======= -->
+  <section id="counts" class="counts">
+    <div class="container">
+
+      <div class="row">
+        <div class="image col-xl-5 d-flex align-items-stretch justify-content-center justify-content-xl-start"
+          data-aos="fade-right" data-aos-delay="150">
+          <img src = "{{ url_for('static',filename = 'assets/img/counts-img.svg')}}" alt="" class="img-fluid">
+        </div>
+
+        <div class="col-xl-7 d-flex align-items-stretch pt-4 pt-xl-0" data-aos="fade-left" data-aos-delay="300">
+          <div class="content d-flex flex-column justify-content-center">
+            <div class="row">
+              <div class="col-md-6 d-md-flex align-items-md-stretch">
+                <div class="count-box">
+                  <i class="bi bi-emoji-smile"></i>
+                  <span data-purecounter-start="0" data-purecounter-end="65" data-purecounter-duration="1"
+                    class="purecounter"></span>
+                  <p><strong>Happy Clients</strong> and their satisfaction drives us to deliver exceptional insights and transformative results.</p>
+                </div>
+              </div>
+
+              <div class="col-md-6 d-md-flex align-items-md-stretch">
+                <div class="count-box">
+                  <i class="bi bi-journal-richtext"></i>
+                  <span data-purecounter-start="0" data-purecounter-end="85" data-purecounter-duration="1"
+                    class="purecounter"></span>
+                  <p><strong>Projects</strong> fuels our drive to continuously exceed expectations and deliver measurable value.</p>
+                </div>
+              </div>
+
+              <div class="col-md-6 d-md-flex align-items-md-stretch">
+                <div class="count-box">
+                  <i class="bi bi-clock"></i>
+                  <span data-purecounter-start="0" data-purecounter-end="18" data-purecounter-duration="1"
+                    class="purecounter"></span>
+                  <p><strong>Years of experience</strong> have forged our data analysis company into a trusted partner.</p>
+                </div>
+              </div>
+
+              <div class="col-md-6 d-md-flex align-items-md-stretch">
+                <div class="count-box">
+                  <i class="bi bi-award"></i>
+                  <span data-purecounter-start="0" data-purecounter-end="15" data-purecounter-duration="1"
+                    class="purecounter"></span>
+                  <p><strong>Awards</strong> are a testament to the excellence of our data analysis company.</p>
+                </div>
+              </div>
+            </div>
+          </div><!-- End .content-->
+        </div>
+      </div>
+
+    </div>
+  </section><!-- End Counts Section -->
+
+  <!-- ======= Services Section ======= -->
+  <section id="services" class="services">
+    <div class="container">
+
+      <div class="section-title" data-aos="fade-up">
+        <h2>Services</h2>
+        <p>Unleash the power of data with our comprehensive suite of services.</p>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+          <div class="icon-box" data-aos="fade-up" data-aos-delay="100">
+            <div class="icon"><i class="bi bi-braces-asterisk"></i></div>
+            <h4 class="title"><a href="">Machine Learning</a></h4>
+            <p class="description">Utilizing advanced algorithms and models to make predictions, forecasts, and recommendations based on historical data patterns.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+          <div class="icon-box" data-aos="fade-up" data-aos-delay="200">
+            <div class="icon"><i class="bi bi-bricks"></i></div>
+            <h4 class="title"><a href="">Data Mining</a></h4>
+            <p class="description">Identifying meaningful patterns, relationships, and anomalies within large datasets to gain actionable insights.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+          <div class="icon-box" data-aos="fade-up" data-aos-delay="300">
+            <div class="icon"><i class="bi bi-bar-chart-line"></i></div>
+            <h4 class="title"><a href="">Statistical Analysis</a></h4>
+            <p class="description">Applying statistical techniques to analyze data, test hypotheses, and draw meaningful conclusions to support business decision-making.</p>
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-3 d-flex align-items-stretch mb-5 mb-lg-0">
+          <div class="icon-box" data-aos="fade-up" data-aos-delay="400">
+            <div class="icon"><i class="bi bi-graph-up-arrow"></i></div>
+            <h4 class="title"><a href="">Market Analysis</a></h4>
+            <p class="description">Dividing customer groups based on specific characteristics and analyzing market dynamics to enhance marketing strategies.</p>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section><!-- End Services Section -->
+
+  <!-- ======= More Services Section ======= -->
+  <section id="more-services" class="more-services">
+    <div class="container">
+
+      <div class="row">
+        <div class="col-md-6 d-flex align-items-stretch">
+          <div class="card" style='background-image: url("static/assets/img/more-services/more-services-0.jpg");' data-aos="fade-up"
+            data-aos-delay="100">
+            <div class="card-body">
+              <h5 class="card-title"><a href="">Data Visualization and Reporting</a></h5>
+              <p class="card-text">Creating visually appealing and interactive dashboards, charts, and reports to present data insights in a clear and concise manner.</p>
+              <div class="read-more"><a href="#"><i class="bi bi-arrow-right"></i> Read More</a></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 d-flex align-items-stretch mt-4 mt-md-0">
+          <div class="card" style='background-image: url("static/assets/img/more-services/more-services-1.jpg");' data-aos="fade-up"
+            data-aos-delay="200">
+            <div class="card-body">
+              <h5 class="card-title"><a href="">Data Strategy and Consultation</a></h5>
+              <p class="card-text">Developing data-driven strategies, providing expert guidance, and assisting in leveraging their data assets for competitive advantage.</p>
+              <div class="read-more"><a href="#"><i class="bi bi-arrow-right"></i> Read More</a></div>
+            </div>
+          </div>
+
+        </div>
+        <div class="col-md-6 d-flex align-items-stretch mt-4">
+          <div class="card" style='background-image: url("static/assets/img/more-services/more-services-2.jpg");' data-aos="fade-up"
+            data-aos-delay="100">
+            <div class="card-body">
+              <h5 class="card-title"><a href="">Data Governance and Compliance</a></h5>
+              <p class="card-text"> Establishing frameworks, policies, and procedures to ensure data privacy, security, and compliance with relevant regulations.</p>
+              <div class="read-more"><a href="#"><i class="bi bi-arrow-right"></i> Read More</a></div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 d-flex align-items-stretch mt-4">
+          <div class="card" style='background-image: url("static/assets/img/more-services/more-services-3.jpg");' data-aos="fade-up"
+            data-aos-delay="200">
+            <div class="card-body">
+              <h5 class="card-title"><a href="">Data Training and Workshops</a></h5>
+              <p class="card-text">Conducting training sessions and workshops to enhance data literacy, analytical skills, and promote a data-driven culture within organizations.</p>
+              <div class="read-more"><a href="#"><i class="bi bi-arrow-right"></i> Read More</a></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section><!-- End More Services Section -->
+
+  <!-- ======= Features Section ======= -->
+  <section id="features" class="features">
+    <div class="container">
+
+      <div class="section-title" data-aos="fade-up">
+        <h2>Features</h2>
+        <p>Unleashing Insights through Powerful Data Analysis Features</p>
+      </div>
+
+      <div class="row" data-aos="fade-up" data-aos-delay="300">
+        <div class="col-lg-3 col-md-4">
+          <div class="icon-box">
+            <i class="bi bi-clipboard2-data" style="color: #ffbb2c;"></i>
+            <h3><a href="">Predictive Analytics</a></h3>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mt-4 mt-md-0">
+          <div class="icon-box">
+            <i class="bi bi-bar-chart-line" style="color: #5578ff;"></i>
+            <h3><a href="">Data Visualization  </a></h3>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mt-4 mt-md-0">
+          <div class="icon-box">
+            <i class="bi bi-braces-asterisk" style="color: #e80368;"></i>
+            <h3><a href="">Machine Learning</a></h3>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mt-4 mt-lg-0">
+          <div class="icon-box">
+            <i class="bi bi-clipboard2-pulse" style="color: #e361ff;"></i>
+            <h3><a href="">Real-time Analytics</a></h3>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mt-4">
+          <div class="icon-box">
+            <i class="bi bi-intersect" style="color: #47aeff;"></i>
+            <h3><a href="">Data Integration</a></h3>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mt-4">
+          <div class="icon-box">
+            <i class="bi bi-graph-up-arrow" style="color: #ffa76e;"></i>
+            <h3><a href="">Statistical Analysis</a></h3>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mt-4">
+          <div class="icon-box">
+            <i class="bi bi-star" style="color: #11dbcf;"></i>
+            <h3><a href="">Data Cleansing</a></h3>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mt-4">
+          <div class="icon-box">
+            <i class="bi bi-bricks" style="color: #4233ff;"></i>
+            <h3><a href="">Data Mining</a></h3>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mt-4">
+          <div class="icon-box">
+            <i class="bi bi-diagram-3" style="color: #b2904f;"></i>
+            <h3><a href="">Data Exploration</a></h3>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mt-4">
+          <div class="icon-box">
+            <i class="bi bi-shield-lock" style="color: #b20969;"></i>
+            <h3><a href="">Data Governance</a></h3>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mt-4">
+          <div class="icon-box">
+            <i class="bi bi-database-fill-add" style="color: #ff5828;"></i>
+            <h3><a href="">Data Collaboration</a></h3>
+          </div>
+        </div>
+        <div class="col-lg-3 col-md-4 mt-4">
+          <div class="icon-box">
+            <i class="bi bi-segmented-nav" style="color: #29cc61;"></i>
+            <h3><a href="">Data Segmentation</a></h3>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section><!-- End Features Section -->
+
+  <!-- ======= Testimonials Section ======= -->
+  <section id="testimonials" class="testimonials section-bg">
+    <div class="container">
+
+      <div class="section-title" data-aos="fade-up">
+        <h2>Testimonials</h2>
+        <p>Unlocking the Power of Data with Data Analysis With Himanshu</p>
+      </div>
+
+      <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100">
+        <div class="swiper-wrapper">
+
+          <div class="swiper-slide">
+            <div class="testimonial-wrap">
+              <div class="testimonial-item" >
+                <img src = "{{ url_for('static',filename = 'assets/img/testimonials/testimonials-1.png')}}" class="testimonial-img" alt="">
+                <h3>Himanshu Mahajan</h3>
+                <h4>Ceo &amp; Founder</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  As the CEO and Founder of Data Analysis With Himanshu, I am proud to lead a team of data enthusiasts who are dedicated to unraveling the hidden value within complex data sets, 
+                  empowering businesses to make informed decisions and achieve remarkable success.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div>
+          </div><!-- End testimonial item -->
+
+          <div class="swiper-slide">
+            <div class="testimonial-wrap">
+              <div class="testimonial-item">
+                <img src = "{{ url_for('static',filename = 'assets/img/testimonials/testimonials-1.png')}}" class="testimonial-img" alt="">
+                <h3>Himanshu Mahajan</h3>
+                <h4>Data Analyst</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  Our data analysis solutions provide organizations with the ability to make informed decisions, uncover hidden opportunities, and drive growth. 
+                  As an analyst at Data Analysis With Himanshu, I am proud to be part of a team that empowers businesses through the power of data.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div>
+          </div><!-- End testimonial item -->
+
+          <div class="swiper-slide">
+            <div class="testimonial-wrap">
+              <div class="testimonial-item">
+                <img src = "{{ url_for('static',filename = 'assets/img/testimonials/testimonials-1.png')}}" class="testimonial-img" alt="">
+                <h3>Himanshu Mahajan</h3>
+                <h4>Machine Learning</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  Harnessing the power of advanced machine learning algorithms, our data analysis company delivers cutting-edge solutions that unearth hidden patterns, 
+                  drive predictive insights, and empower businesses to make informed decisions with unprecedented accuracy and efficiency.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div>
+          </div><!-- End testimonial item -->
+
+          <div class="swiper-slide">
+            <div class="testimonial-wrap">
+              <div class="testimonial-item">
+                <img src = "{{ url_for('static',filename = 'assets/img/testimonials/testimonials-1.png')}}" class="testimonial-img" alt="">
+                <h3>Himanshu Mahajan</h3>
+                <h4>Data Visualizer</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  I am continually inspired by the limitless possibilities of data and how it can transform businesses. 
+                  At Data Analysis With Himanshu, we merge artistry with analytics to create visually stunning and meaningful data stories that empower our clients to make informed decisions with confidence.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div>
+          </div><!-- End testimonial item -->
+
+          <div class="swiper-slide">
+            <div class="testimonial-wrap">
+              <div class="testimonial-item">
+                <img src = "{{ url_for('static',filename = 'assets/img/testimonials/testimonials-1.png')}}" class="testimonial-img" alt="">
+                <h3>Himanshu Mahajan</h3>
+                <h4>Social Handler</h4>
+                <p>
+                  <i class="bx bxs-quote-alt-left quote-icon-left"></i>
+                  Social Handler at Data Analysis With Himansh,We harness the power of data to drive business growth. 
+                  Our expertise in data analysis empowers companies to make informed decisions, uncover valuable insights, and optimize strategies. 
+                  Join us in transforming your business through the power of data.
+                  <i class="bx bxs-quote-alt-right quote-icon-right"></i>
+                </p>
+              </div>
+            </div>
+          </div><!-- End testimonial item -->
+
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+
+    </div>
+  </section><!-- End Testimonials Section -->
+
+  <!-- ======= Portfolio Section ======= -->
+  <section id="portfolio" class="portfolio">
+    <div class="container">
+
+      <div class="section-title" data-aos="fade-up">
+        <h2>Portfolio</h2>
+        <p>Here is a showcase of our work, demonstrating our expertise and capabilities as a leading data analysis company.</p>
+      </div>
+
+      <div class="row" data-aos="fade-up" data-aos-delay="200">
+        <div class="col-lg-12 d-flex justify-content-center">
+          <ul id="portfolio-flters">
+            <li data-filter="*" class="filter-active">All</li>
+            <li data-filter=".filter-app">Data Analysis</li>
+            <li data-filter=".filter-card">Machine Learning</li>
+            <li data-filter=".filter-web">Deep Learning</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="400">
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+          <div class="portfolio-wrap">
+            <img src = "{{ url_for('static',filename = 'assets/img/portfolio/portfolio-1.jpg')}}" class="img-fluid" style="resize: 800x600;" alt="">
+            <div class="portfolio-info">
+              <h4>Data Analysis</h4>
+              <p>Project 1</p>
+              <div class="portfolio-links">
+                <a href="{{url_for('static',filename = 'assets/img/portfolio/portfolio-1.jpg')}}" data-gallery="portfolioGallery"
+                  class="portfolio-lightbox" title="Data Analysis"><i class="bi bi-plus"></i></a>
+                <a href="/DA-1" title="More Details"><i class="bi bi-link-45deg"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+          <div class="portfolio-wrap">
+            <img src = "{{ url_for('static',filename = 'assets/img/portfolio/portfolio-2.jpg')}}" class="img-fluid" style="resize: 800x600;" alt="">
+            <div class="portfolio-info">
+              <h4>Machine Learning</h4>
+              <p>Project 1</p>
+              <div class="portfolio-links">
+                <a href="{{url_for('static',filename = 'assets/img/portfolio/portfolio-2.jpg')}}" data-gallery="portfolioGallery"
+                  class="portfolio-lightbox" title="Machine Learning"><i class="bi bi-plus"></i></a>
+                <a href="/ML-1" title="More Details"><i class="bi bi-link-45deg"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+          <div class="portfolio-wrap">
+            <img src = "{{ url_for('static',filename = 'assets/img/portfolio/portfolio-3.jpg')}}" class="img-fluid" alt="">
+            <div class="portfolio-info">
+              <h4>Deep Learning</h4>
+              <p>Project 1</p>
+              <div class="portfolio-links">
+                <a href="{{url_for('static',filename = 'assets/img/portfolio/portfolio-3.jpg')}}" data-gallery="portfolioGallery"
+                  class="portfolio-lightbox" title="Deep Learning"><i class="bi bi-plus"></i></a>
+                <a href="/DL-1" title="More Details"><i class="bi bi-link-45deg"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+          <div class="portfolio-wrap">
+            <img src = "{{ url_for('static',filename = 'assets/img/portfolio/portfolio-4.jpg')}}" class="img-fluid" alt="">
+            <div class="portfolio-info">
+              <h4>Data Analysis</h4>
+              <p>Project 2</p>
+              <div class="portfolio-links">
+                <a href="{{url_for('static',filename = 'assets/img/portfolio/portfolio-4.jpg')}}" data-gallery="portfolioGallery"
+                  class="portfolio-lightbox" title="Data Analysis"><i class="bi bi-plus"></i></a>
+                <a href="/DA-2" title="More Details"><i class="bi bi-link-45deg"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+          <div class="portfolio-wrap">
+            <img src = "{{ url_for('static',filename = 'assets/img/portfolio/portfolio-5.jpg')}}" class="img-fluid" alt="">
+            <div class="portfolio-info">
+              <h4>Machine Learning</h4>
+              <p>Project 2</p>
+              <div class="portfolio-links">
+                <a href="{{url_for('static',filename = 'assets/img/portfolio/portfolio-5.jpg')}}" data-gallery="portfolioGallery"
+                  class="portfolio-lightbox" title="Machine Learning"><i class="bi bi-plus"></i></a>
+                <a href="/ML-2" title="More Details"><i class="bi bi-link-45deg"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+          <div class="portfolio-wrap">
+            <img src = "{{ url_for('static',filename = 'assets/img/portfolio/portfolio-6.jpg')}}" class="img-fluid" alt="">
+            <div class="portfolio-info">
+              <h4>Deep Learning</h4>
+              <p>Project 2</p>
+              <div class="portfolio-links">
+                <a href="{{url_for('static',filename = 'assets/img/portfolio/portfolio-6.jpg')}}" data-gallery="portfolioGallery"
+                  class="portfolio-lightbox" title="Deep :Learning"><i class="bi bi-plus"></i></a>
+                <a href="/DL-2" title="More Details"><i class="bi bi-link-45deg"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-app">
+          <div class="portfolio-wrap">
+            <img src = "{{ url_for('static',filename = 'assets/img/portfolio/portfolio-7.jpg')}}" class="img-fluid" alt="">
+            <div class="portfolio-info">
+              <h4>Data Analysis</h4>
+              <p>Project 3</p>
+              <div class="portfolio-links">
+                <a href="{{url_for('static',filename = 'assets/img/portfolio/portfolio-7.jpg')}}" data-gallery="portfolioGallery"
+                  class="portfolio-lightbox" title="Data Analysis"><i class="bi bi-plus"></i></a>
+                <a href="/DA-3" title="More Details"><i class="bi bi-link-45deg"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-card">
+          <div class="portfolio-wrap">
+            <img src = "{{ url_for('static',filename = 'assets/img/portfolio/portfolio-8.jpg')}}" class="img-fluid" alt="">
+            <div class="portfolio-info">
+              <h4>Machine Learning</h4>
+              <p>Project 3 </p>
+              <div class="portfolio-links">
+                <a href="{{url_for('static',filename = 'assets/img/portfolio/portfolio-8.jpg')}}" data-gallery="portfolioGallery"
+                  class="portfolio-lightbox" title="Machine Learning"><i class="bi bi-plus"></i></a>
+                <a href="/ML-3" title="More Details"><i class="bi bi-link-45deg"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 portfolio-item filter-web">
+          <div class="portfolio-wrap">
+            <img src = "{{ url_for('static',filename = 'assets/img/portfolio/portfolio-9.jpg')}}" class="img-fluid" alt="">
+            <div class="portfolio-info">
+              <h4>Deep Learning</h4>
+              <p>Project 3</p>
+              <div class="portfolio-links">
+                <a href="{{url_for('static',filename = 'assets/img/portfolio/portfolio-9.jpg')}}" data-gallery="portfolioGallery"
+                  class="portfolio-lightbox" title="Deep Learning"><i class="bi bi-plus"></i></a>
+                <a href="/DL-3" title="More Details"><i class="bi bi-link-45deg"></i></a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section><!-- End Portfolio Section -->
+
+  <!-- ======= Team Section ======= -->
+  <section id="team" class="team section-bg">
+    <div class="container">
+
+      <div class="section-title" data-aos="fade-up">
+        <h2>Team</h2>
+        <p>Empowering Insights, Maximizing Potential With Our Data Analysis Team</p>
+      </div>
+
+      <div class="row">
+
+        <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+          <div class="member" data-aos="fade-up" data-aos-delay="100">
+            <div class="member-img">
+              <img src = "{{ url_for('static',filename = 'assets/img/team/ceo.jpg')}}" class="img-fluid" alt="">
+              <div class="social">
+                <a href="https://twitter.com/Himansh18223646?t=zvP28gErJ-ueMm3wxqc4tw&s=08" class="twitter"  target="_blank" rel="noopener noreferrer"><i class="bi bi-twitter"></i></a>
+                <a href="https://github.com/himanshumahajan138" class="facebook"  target="_blank" rel="noopener noreferrer"><i class="bi bi-github"></i></a>
+                <a href="https://instagram.com/phenominal__himanshu__?igshid=MzNlNGNkZWQ4Mg==" class="instagram"  target="_blank" rel="noopener noreferrer"><i class="bi bi-instagram"></i></a>
+                <a href="https://www.linkedin.com/in/himanshu-mahajan-a0242026a" class="linkedin"  target="_blank" rel="noopener noreferrer"><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+            <div class="member-info">
+              <h4>Himanshu Mahajan</h4>
+              <span>Chief Executive Officer</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+          <div class="member" data-aos="fade-up" data-aos-delay="200">
+            <div class="member-img">
+              <img src = "{{ url_for('static',filename = 'assets/img/team/product_manager.jpg')}}" class="img-fluid" alt="">
+              <div class="social">
+                <a href="https://twitter.com/Himansh18223646?t=zvP28gErJ-ueMm3wxqc4tw&s=08" class="twitter"  target="_blank" rel="noopener noreferrer"><i class="bi bi-twitter"></i></a>
+                <a href="https://github.com/himanshumahajan138" class="facebook"  target="_blank" rel="noopener noreferrer"><i class="bi bi-github"></i></a>
+                <a href="https://instagram.com/phenominal__himanshu__?igshid=MzNlNGNkZWQ4Mg==" class="instagram"  target="_blank" rel="noopener noreferrer"><i class="bi bi-instagram"></i></a>
+                <a href="https://www.linkedin.com/in/himanshu-mahajan-a0242026a" class="linkedin"  target="_blank" rel="noopener noreferrer"><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+            <div class="member-info">
+              <h4>Ashish Mahajan</h4>
+              <span>Product Manager</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+          <div class="member" data-aos="fade-up" data-aos-delay="300">
+            <div class="member-img">
+              <img src = "{{ url_for('static',filename = 'assets/img/team/cto.jpg')}}" class="img-fluid" alt="">
+              <div class="social">
+                <a href="https://twitter.com/Himansh18223646?t=zvP28gErJ-ueMm3wxqc4tw&s=08" class="twitter"  target="_blank" rel="noopener noreferrer"><i class="bi bi-twitter"></i></a>
+                <a href="https://github.com/himanshumahajan138" class="facebook"  target="_blank" rel="noopener noreferrer"><i class="bi bi-github"></i></a>
+                <a href="https://instagram.com/phenominal__himanshu__?igshid=MzNlNGNkZWQ4Mg==" class="instagram"  target="_blank" rel="noopener noreferrer"><i class="bi bi-instagram"></i></a>
+                <a href="https://www.linkedin.com/in/himanshu-mahajan-a0242026a" class="linkedin"  target="_blank" rel="noopener noreferrer"><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+            <div class="member-info">
+              <h4>Ricky Mahajan</h4>
+              <span>CTO</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 d-flex align-items-stretch">
+          <div class="member" data-aos="fade-up" data-aos-delay="400">
+            <div class="member-img">
+              <img src = "{{ url_for('static',filename = 'assets/img/team/accountant.jpg')}}" class="img-fluid" alt="">
+              <div class="social">
+                <a href="https://twitter.com/Himansh18223646?t=zvP28gErJ-ueMm3wxqc4tw&s=08" class="twitter"  target="_blank" rel="noopener noreferrer"><i class="bi bi-twitter"></i></a>
+                <a href="https://github.com/himanshumahajan138" class="facebook"  target="_blank" rel="noopener noreferrer"><i class="bi bi-github"></i></a>
+                <a href="https://instagram.com/phenominal__himanshu__?igshid=MzNlNGNkZWQ4Mg==" class="instagram"  target="_blank" rel="noopener noreferrer"><i class="bi bi-instagram"></i></a>
+                <a href="https://www.linkedin.com/in/himanshu-mahajan-a0242026a" class="linkedin"  target="_blank" rel="noopener noreferrer"><i class="bi bi-linkedin"></i></a>
+              </div>
+            </div>
+            <div class="member-info">
+              <h4>Nitish Mahajan</h4>
+              <span>Accountant</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section><!-- End Team Section -->
+
+  <!-- ======= Pricing Section ======= -->
+  <section id="pricing" class="pricing">
+    <div class="container">
+
+      <div class="section-title">
+        <h2>Pricing</h2>
+        <p>Unleash the Power of Data Analysis with Our Data-Driven Solutions Tailored to Your Budget</p>
+      </div>
+
+      <div class="row">
+
+        <div class="col-lg-4 col-md-6">
+          <div class="box" data-aos="zoom-in-right" data-aos-delay="200">
+            <h3>Free</h3>
+            <h4><sup>₹</sup>0<span> / month</span></h4>
+            <ul>
+              <li>Basic Data Analysis Tools</li>
+              <li>Limited Data Visualization</li>
+              <li>Basic Data Cleaning</li>
+              <li class="na">Data Modeling</li> 
+              <li class="na">Data Integration</li>
+              <li class="na">API Access</li>
+              <li class="na">Custom Dashboard</li>
+              <li class="na">Collaborative Tools</li>
+            </ul>
+            <div class="btn-wrap">
+              <a href="#" class="btn-buy">Buy Now</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 mt-4 mt-md-0">
+          <div class="box recommended" data-aos="zoom-in" data-aos-delay="100">
+            <h3>Business</h3>
+            <h4><sup>₹</sup>1999<span> / month</span></h4>
+            <ul>
+              <li>Advanced Data Analysis Tools</li>
+              <li>Enhanced Data Visualization</li>
+              <li>Advanced Data Cleaning</li>
+              <li>Basic Data Modeling</li> 
+              <li>Basic Data Integration</li>
+              <li>Limited API Access</li>
+              <li>Limited Custom Dashboard</li>
+              <li>Limited Collaborative Tools</li>
+            </ul>
+            <div class="btn-wrap">
+              <a href="#" class="btn-buy">Buy Now</a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-4 col-md-6 mt-4 mt-lg-0">
+          <div class="box" data-aos="zoom-in-left" data-aos-delay="200">
+            <h3>Developer</h3>
+            <h4><sup>₹</sup>2999<span> / month</span></h4>
+            <ul>
+              <li>Advanced Data Analysis Tools</li>
+              <li>Enhanced Data Visualization</li>
+              <li>Advanced Data Cleaning</li>
+              <li>Advanced Data Modeling</li> 
+              <li>Advanced Data Integration</li>
+              <li>Unlimited API Access</li>
+              <li>Unlimited Custom Dashboard</li>
+              <li>Unlimited Collaborative Tools</li>
+            </ul>
+            <div class="btn-wrap">
+              <a href="#" class="btn-buy">Buy Now</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </section><!-- End Pricing Section -->
+
+  <!-- ======= F.A.Q Section ======= -->
+  <section id="faq" class="faq">
+    <div class="container">
+
+      <div class="section-title" data-aos="fade-up">
+        <h2>Frequently Asked Questions</h2>
+      </div>
+
+      <div class="row justify-content-center" data-aos="fade-up">
+        <div class="col-xl-10" >
+          <ul class="faq-list">
+
+            <li>
+              <div data-bs-toggle="collapse" class="collapsed question" href="#faq1"data-aos="fade-up" data-aos-delay="100">What services does your data analysis company provide ?<i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
+              <div id="faq1" class="collapse" data-bs-parent=".faq-list" >
+                <p>
+                  Our company offers comprehensive data analysis services, including data cleansing, exploratory analysis, 
+                  predictive modeling, data visualization, and actionable insights generation.
+                </p>
+              </div>
+            </li>
+
+            <li>
+              <div data-bs-toggle="collapse" href="#faq2" class="collapsed question"data-aos="fade-up" data-aos-delay="200">How can data analysis benefit my business ?<i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
+              <div id="faq2" class="collapse" data-bs-parent=".faq-list" >
+                <p>
+                  Data analysis empowers businesses by uncovering valuable patterns and trends, identifying customer preferences, 
+                  optimizing operations, and making data-driven decisions, leading to improved efficiency, increased profitability, and a competitive edge in the market.
+                </p>
+              </div>
+            </li>
+
+            <li>
+              <div data-bs-toggle="collapse" href="#faq3" class="collapsed question"data-aos="fade-up" data-aos-delay="300">What sets your data analysis company apart from others ?<i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
+              <div id="faq3" class="collapse" data-bs-parent=".faq-list" >
+                <p>
+                  Our company stands out through its deep expertise in advanced analytics techniques, state-of-the-art tools, and a proven track record of delivering actionable insights. 
+                  We prioritize a customized approach, tailored to our clients' specific needs, to maximize the value derived from their data.
+                </p>
+              </div>
+            </li>
+
+            <li>
+              <div data-bs-toggle="collapse" href="#faq4" class="collapsed question"data-aos="fade-up" data-aos-delay="400">How secure is my data with your company ?<i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
+              <div id="faq4" class="collapse" data-bs-parent=".faq-list" >
+                <p>
+                  We prioritize data security and strictly adhere to industry best practices. Our company implements robust security measures, including encryption, access controls, 
+                  and regular audits, ensuring your data is protected at all times. Confidentiality and privacy are our top priorities.
+                </p>
+              </div>
+            </li>
+
+            <li>
+              <div data-bs-toggle="collapse" href="#faq5" class="collapsed question"data-aos="fade-up" data-aos-delay="500">How long does it take to see results from data analysis ?<i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
+              <div id="faq5" class="collapse" data-bs-parent=".faq-list" >
+                <p>
+                  The timeframe for results varies depending on the complexity of the project and the amount of data involved. However, we work diligently to deliver timely insights, 
+                  and our agile approach allows us to provide meaningful results within weeks, enabling you to make informed decisions faster.
+                </p>
+              </div>
+            </li>
+
+            <li>
+              <div data-bs-toggle="collapse" href="#faq6" class="collapsed question"data-aos="fade-up" data-aos-delay="600">How does your data analysis process work ?<i class="bi bi-chevron-down icon-show"></i><i class="bi bi-chevron-up icon-close"></i></div>
+              <div id="faq6" class="collapse" data-bs-parent=".faq-list" >
+                <p>
+                  Our data analysis process involves data collection, cleansing, transformation, and modeling. 
+                  We employ statistical techniques, machine learning algorithms, and visualizations to extract meaningful information from raw data, providing actionable recommendations for our clients.
+                </p>
+              </div>
+            </li>
+
+          </ul>
+        </div>
+      </div>
+
+
+
+    </div>
+  </section><!-- End F.A.Q Section -->
+
+  <!-- ======= Contact Section ======= -->
+  <section id="contact" class="contact">
+    <div class="container">
+
+      <div class="section-title" data-aos="fade-up">
+        <h2>Contact Us</h2>
+      </div>
+
+      <div class="row">
+
+        <div class="col-lg-4 col-md-6" data-aos="fade-up" data-aos-delay="100">
+          <div class="contact-about">
+            <h3>Data Analysis With Himanshu</h3>
+            <p>Join us on our social media journey and be a part of our growing community of data enthusiasts. 
+              Together, let's explore the limitless possibilities of data analysis and unlock insights that drive success in your business. 
+              Connect with us today on our social handles and let's embark on this data-driven adventure together.</p>
+            <div class="social-links">
+              <a href="https://twitter.com/Himansh18223646?t=zvP28gErJ-ueMm3wxqc4tw&s=08" class="twitter"  target="_blank" rel="noopener noreferrer"><i class="bi bi-twitter"></i></a>
+              <a href="https://github.com/himanshumahajan138" class="facebook"  target="_blank" rel="noopener noreferrer"><i class="bi bi-github"></i></a>
+              <a href="https://instagram.com/phenominal__himanshu__?igshid=MzNlNGNkZWQ4Mg==" class="instagram"  target="_blank" rel="noopener noreferrer"><i class="bi bi-instagram"></i></a>
+              <a href="https://www.linkedin.com/in/himanshu-mahajan-a0242026a" class="linkedin"  target="_blank" rel="noopener noreferrer"><i class="bi bi-linkedin"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6 mt-4 mt-md-0" data-aos="fade-up" data-aos-delay="200">
+          <div class="info">
+            <div>
+              <i class="bi bi-geo-alt"></i>
+              <p>Pathankot,Punjab<br>India 145001</p>
+            </div>
+
+            <div>
+              <i class="bi bi-envelope-at"></i>
+              <p>data.analysis.138@gmail.com</p>
+            </div>
+
+            <div>
+              <i class="bi bi-telephone"></i>
+              <p>+91 99XX88XX77</p>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-lg-5 col-md-12" data-aos="fade-up" data-aos-delay="300">
+          <form action="/contact" method="post" role="form" class="contact-email">
+            <div class="form-group">
+              <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+              <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+              <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required>
+            </div>
+            <div class="form-group">
+              <textarea class="form-control" name="message" rows="5" placeholder="Message" required></textarea>
+            </div>
+            <div class="text-center"><button type="submit">Send Message</button></div>
+          </form>
+        </div>
+
+      </div>
+
+    </div>
+  </section><!-- End Contact Section -->
+
+</main><!-- End #main -->
+
+{% endblock %}

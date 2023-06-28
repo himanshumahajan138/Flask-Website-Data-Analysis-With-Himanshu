@@ -1,0 +1,115 @@
+{% extends "main/layout.html" %}
+{% block body %}
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="container">
+
+        <div class="d-flex justify-content-between align-items-center">
+          <h2>Portfolio Details</h2>
+          <ol>
+            <li><a href="/">Home</a></li>
+            <li>Data Analysis</li>
+          </ol>
+        </div>
+
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <!-- ======= Portfolio Details Section ======= -->
+    <section id="portfolio-details" class="portfolio-details">
+      <div class="container">
+
+        <div class="row gy-4">
+
+          <div class="col-lg-8">
+            <div class="portfolio-details-slider swiper">
+              <div class="swiper-wrapper align-items-center">
+
+                <div class="swiper-slide">
+                  <img src="{{url_for('static',filename='assets/img/portfolio/portfolio-1.jpg')}}" alt="">
+                </div>
+
+                <div class="swiper-slide">
+                  <img src="{{url_for('static',filename='assets/img/portfolio/portfolio-4.jpg')}}" alt="">
+                </div>
+
+                <div class="swiper-slide">
+                  <img src="{{url_for('static',filename='assets/img/portfolio/portfolio-7.jpg')}}" alt="">
+                </div>
+
+              </div>
+              <div class="swiper-pagination"></div>
+            </div>
+          </div>
+          {% if value == "/DA-1" %}
+          <div class="col-lg-4">
+            <div class="portfolio-info">
+              <h3>Project information</h3>
+              <ul>
+                <li><strong>Category</strong>: Data Analysis</li>
+                <li><strong>Client</strong>: XYZ Company</li>
+                <li><strong>Project date</strong>: 01 March, 2023</li>
+                <li><strong>Project URL</strong>: <a href="https://github.com/himanshumahajan138" target="_blank" rel="noreferrer noopener">Data Analysis</a></li>
+              </ul>
+            </div>
+            <div class="portfolio-description">
+              <h2>This is a Data Analysis Project</h2>
+              <p>
+                This data analysis project aims to empower decision-makers with valuable insights derived from comprehensive data analysis. 
+                By unraveling hidden patterns and trends within the dataset, the project strives to enhance organizational efficiency, drive informed decision-making, and achieve strategic objectives. 
+                The results obtained from this analysis will serve as a foundation for future research, planning, and implementation of data-driven strategies across various domains and industries.
+              </p>
+            </div>
+          </div>
+          {% elif value == "/DA-2" %}
+          <div class="col-lg-4">
+            <div class="portfolio-info">
+              <h3>Project information</h3>
+              <ul>
+                <li><strong>Category</strong>: Data Analysis</li>
+                <li><strong>Client</strong>: XYZ Company</li>
+                <li><strong>Project date</strong>: 01 March, 2023</li>
+                <li><strong>Project URL</strong>: <a href="https://github.com/himanshumahajan138" target="_blank" rel="noreferrer noopener">Data Analysis</a></li>
+              </ul>
+            </div>
+            <div class="portfolio-description">
+              <h2>This is a Data Analysis Project</h2>
+              <p>
+                This data analysis project aims to empower decision-makers with valuable insights derived from comprehensive data analysis. 
+                By unraveling hidden patterns and trends within the dataset, the project strives to enhance organizational efficiency, drive informed decision-making, and achieve strategic objectives. 
+                The results obtained from this analysis will serve as a foundation for future research, planning, and implementation of data-driven strategies across various domains and industries.
+              </p>
+            </div>
+          </div>
+          {% elif value == "/DA-3" %}
+          <div class="col-lg-4">
+            <div class="portfolio-info">
+              <h3>Project information</h3>
+              <ul>
+                <li><strong>Category</strong>: Data Analysis</li>
+                <li><strong>Client</strong>: XYZ Company</li>
+                <li><strong>Project date</strong>: 01 March, 2023</li>
+                <li><strong>Project URL</strong>: <a href="https://github.com/himanshumahajan138" target="_blank" rel="noreferrer noopener">Data Analysis</a></li>
+              </ul>
+            </div>
+            <div class="portfolio-description">
+              <h2>This is a Data Analysis Project</h2>
+              <p>
+                This data analysis project aims to empower decision-makers with valuable insights derived from comprehensive data analysis. 
+                By unraveling hidden patterns and trends within the dataset, the project strives to enhance organizational efficiency, drive informed decision-making, and achieve strategic objectives. 
+                The results obtained from this analysis will serve as a foundation for future research, planning, and implementation of data-driven strategies across various domains and industries.
+              </p>
+            </div>
+          </div>
+          {% endif %}
+
+        </div>
+
+      </div>
+    </section><!-- End Portfolio Details Section -->
+
+  </main><!-- End #main -->
+{% endblock %}

@@ -1,0 +1,74 @@
+from flask import Flask,render_template,request
+from static.forms.contact import send_email,is_valid
+from datetime import datetime
+from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
+
+
+uri = "mongodb+srv://dataanalysis138:Himanshu21303066%40@himanshu.t24iuti.mongodb.net/?retryWrites=true&w=majority"
+client = MongoClient(uri, server_api=ServerApi('1'))
+
+App = Flask(__name__)
+App.config["SECRET_KEY"] = "0ab66e0e091f8cdd42f2f1d46d4d70eb"
+
+
+def connection_result(client):
+    try:
+        client.admin.command('ping')
+        return True
+    except  Exception as e :
+        return e
+
+@App.route("/")
+def home():
+    return render_template("main/index.html")
+
+@App.route("/DA-1")
+@App.route("/DA-2")
+@App.route("/DA-3")
+@App.route("/ML-1")
+@App.route("/ML-2")
+@App.route("/ML-3")
+@App.route("/DL-1")
+@App.route("/DL-2")
+@App.route("/DL-3")
+def project_dis():
+    re = str(request.url_rule)
+    if re in ["/DA-1","/DA-2","/DA-3"]:
+        return render_template("portfolio/portfolio-DA.html",value = re)
+    elif re in ["/ML-1","/ML-2","/ML-3"]:
+        return render_template("portfolio/portfolio-ML.html",value = re)
+    elif re in ["/DL-1","/DL-2","/DL-3"]:
+        return render_template("portfolio/portfolio-DL.html",value = re)
+    else:
+        return None
+
+@App.route("/contact",methods=["GET","POST"])
+def contact():
+    if request.method=="POST":
+        name = request.form['name']
+        email = request.form['email']
+        subject = request.form['subject']
+        message = request.form['message']
+        sent = False
+        if is_valid(email):
+            database = client.get_database("Contact")
+            collection = database.get_collection("users")
+            
+            if collection.find_one(filter={'email' : f'{email}'}) == None:
+                collection.insert_one( {'date_time' : f'{datetime.now()}' , 'name' : f'{name}' , 'email' : f'{email}' , 'subject' : f'{subject}' , 'message' : f'{message}' } )
+                sent = send_email(name,email,subject,message,other=True)
+            else:
+                sent = 'old'
+            return render_template("contact/contact_result.html",value=sent)
+        else:
+            return render_template("contact/contact_result.html",value=sent)
+    else:
+        return False
+
+
+if __name__ == "__main__":
+    if connection_result(client) == True :
+        App.run(debug=True)
+    else :
+        print(connection_result(client))
