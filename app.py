@@ -7,7 +7,7 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-uri = os.getenv("MONGO_DB_URI")
+uri = os.environ.get("MONGO_DB_URI")
 client = MongoClient(uri, server_api=ServerApi('1'))
 
 App = Flask(__name__)
