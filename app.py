@@ -3,14 +3,15 @@ from static.forms.contact import send_email,is_valid
 from datetime import datetime
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
+import os
 
 
 
-uri = "mongodb+srv://dataanalysis138:Himanshu21303066%40@himanshu.t24iuti.mongodb.net/?retryWrites=true&w=majority"
+uri = os.getenv("MONGO_DB_URI")
 client = MongoClient(uri, server_api=ServerApi('1'))
 
 App = Flask(__name__)
-App.config["SECRET_KEY"] = "0ab66e0e091f8cdd42f2f1d46d4d70eb"
+App.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
 
 
 def connection_result(client):
