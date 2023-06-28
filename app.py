@@ -52,8 +52,8 @@ def contact():
         email = request.form['email']
         subject = request.form['subject']
         message = request.form['message']
-        sent = False
-        if is_valid(email):
+        sent = True
+        if sent:
             # database = client.get_database("Contact")
             # collection = database.get_collection("users")
             
