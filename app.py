@@ -71,6 +71,6 @@ def contact():
 
 if __name__ == "__main__":
     if connection_result(client) == True :
-        App.run(debug=True)
+        App.run(debug=os.getenv("DEBUG"))
     else :
         print(connection_result(client))
