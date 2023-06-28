@@ -4,14 +4,14 @@ from datetime import datetime
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 import os
+from dotenv import load_dotenv
 
-
-
+load_dotenv()
 uri = os.getenv("MONGO_DB_URI")
 client = MongoClient(uri, server_api=ServerApi('1'))
 
 App = Flask(__name__)
-App.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
+App.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 
 
 def connection_result(client):
@@ -71,6 +71,6 @@ def contact():
 
 if __name__ == "__main__":
     if connection_result(client) == True :
-        App.run(debug=os.getenv("DEBUG"))
+        App.run(debug=os.environ.get("DEBUG"))
     else :
         print(connection_result(client))
