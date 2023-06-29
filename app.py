@@ -7,7 +7,7 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-uri = os.environ.get("MONGO_DB_URI")
+uri = os.environ.get("MONGODB_URI")
 client = MongoClient(uri, server_api=ServerApi('1'))
 
 App = Flask(__name__)
@@ -52,16 +52,16 @@ def contact():
         email = request.form['email']
         subject = request.form['subject']
         message = request.form['message']
-        sent = True
-        if sent:
-            # database = client.get_database("Contact")
-            # collection = database.get_collection("users")
+        sent = False
+        if is_valid(email):
+            database = client.get_database("Contact")
+            collection = database.get_collection("users")
             
-            # if collection.find_one(filter={'email' : f'{email}'}) == None:
-            #     collection.insert_one( {'date_time' : f'{datetime.now()}' , 'name' : f'{name}' , 'email' : f'{email}' , 'subject' : f'{subject}' , 'message' : f'{message}' } )
-            sent = send_email(name,email,subject,message,other=True)
-            # else:
-            #     sent = 'old'
+            if collection.find_one(filter={'email' : f'{email}'}) == None:
+                collection.insert_one( {'date_time' : f'{datetime.now()}' , 'name' : f'{name}' , 'email' : f'{email}' , 'subject' : f'{subject}' , 'message' : f'{message}' } )
+                sent = send_email(name,email,subject,message,other=True)
+            else:
+                sent = 'old'
             return render_template("contact/contact_result.html",value=sent)
         else:
             return render_template("contact/contact_result.html",value=sent)
