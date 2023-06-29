@@ -53,17 +53,17 @@ def contact():
         subject = request.form['subject']
         message = request.form['message']
         sent = False
-        if is_valid(email):
-            database = client.get_database("Contact")
-            collection = database.get_collection("users")
-            
-            if collection.find_one(filter={'email' : f'{email}'}) == None:
+        database = client.get_database("Contact")
+        collection = database.get_collection("users")
+        if collection.find_one(filter={'email' : f'{email}'}) == None:          
+            if is_valid(email):
                 collection.insert_one( {'date_time' : f'{datetime.now()}' , 'name' : f'{name}' , 'email' : f'{email}' , 'subject' : f'{subject}' , 'message' : f'{message}' } )
                 sent = send_email(name,email,subject,message,other=True)
             else:
-                sent = 'old'
+                sent = False
             return render_template("contact/contact_result.html",value=sent)
         else:
+            sent = 'old'
             return render_template("contact/contact_result.html",value=sent)
     else:
         return False
