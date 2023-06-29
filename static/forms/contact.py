@@ -27,7 +27,7 @@ def send_email(name="xyz",email="xyz@gmail.com",subject="xyz",message="xyz",othe
             email_receiver = email
             subject = "Thank you for reaching out to Data Analysis  With Himanshu"
             msg = f"Dear {name},\n\n"
-            with open(file=f"{os.getcwd()}/email.txt",mode="r") as file:
+            with open(file="static/forms/email.txt",mode="r") as file:
                 for line in file.readlines():
                     msg+=line
         em = EmailMessage()
