@@ -6,6 +6,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 def is_valid(email_addr="xyz@xyz.com"):
+    load_dotenv()
     response = requests.get(f"{os.environ.get('ABSTRACT_API')}+{email_addr}")
     if response.status_code == 200:
         x= response.content.decode()
@@ -19,6 +20,7 @@ def is_valid(email_addr="xyz@xyz.com"):
 
 def send_email(name="xyz",email="xyz@gmail.com",subject="xyz",message="xyz",other=False,reciever='phenominal138@outlook.com',count=0):
     try:
+        load_dotenv()
         email_sender = 'data.analysis.138@gmail.com'
         email_password = os.environ.get("EMAIL_PASSWORD")
         email_receiver = reciever
