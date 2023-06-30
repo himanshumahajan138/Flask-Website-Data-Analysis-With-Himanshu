@@ -45,7 +45,7 @@ def project_dis():
     else:
         return None
 
-@App.route("/contact",methods=["GET","POST"])
+@App.route("/Contact",methods=["GET","POST"])
 def contact():
     if request.method=="POST":
         name = request.form['name']
@@ -68,6 +68,21 @@ def contact():
     else:
         return False
 
+@App.route("/Login")
+def login():
+    return render_template("/extra/login.html")
+
+@App.route("/Login-Validation",methods=["GET","POST"])
+def login_validation():
+    if request.method=="POST":
+        username = request.form['username']
+        password = request.form['password']
+        try:
+            remember = request.form['remember']
+        except:
+            remember = False
+            
+        return f"User Name : {username}<br>Password : {password}<br>Remember Me : {remember}<br>"
 
 if __name__ == "__main__":
     if connection_result(client) == True :
