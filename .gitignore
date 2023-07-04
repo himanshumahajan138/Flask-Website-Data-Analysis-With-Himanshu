@@ -1,3 +1,5 @@
 __pycache__/
 static/forms/__pycache__/
 .env
+templates/contact/
+templates/extra/inner-page.html

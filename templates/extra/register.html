@@ -28,7 +28,7 @@
                 <div class="row justify-content-center">
                     <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
                         <div class="card mb-3">
-                            {% with messages=get_flashed_messages(with_categories=true) %}
+                            <!-- {% with messages=get_flashed_messages(with_categories=true) %}
                             {% for category, message in messages %}
                             <div class='alert alert-{{category}} text-center alert-dismissible fade show'
                                 style="width: 100%;padding-right: 0;padding-left: 0;">
@@ -39,15 +39,14 @@
                                 </button>
                             </div>
                             {% endfor %}
-                            {% endwith %}
+                            {% endwith %} -->
                             <div class="card-body">
                                 <div class="pt-4 pb-2">
                                     <h5 class="card-title text-center pb-0 fs-4">Create an Account</h5>
                                     <p class="text-center small">Enter your personal details to create account</p>
                                 </div>
 
-                                <form class="row g-3 needs-validation" action="/Register" role="form"
-                                    method="post">
+                                <form class="row g-3 needs-validation" action="/Register" role="form" method="post">
                                     <div class="col-12">
                                         <label for="yourName" class="form-label">Your Name</label>
                                         {% if value!=None %}

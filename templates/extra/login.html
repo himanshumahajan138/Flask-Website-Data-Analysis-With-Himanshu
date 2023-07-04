@@ -21,25 +21,27 @@
   }
 </style>
 <main id="main">
-  
+
   <div class="container">
-    
+
     <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
-            {% with messages=get_flashed_messages(with_categories=true) %}
+            <!-- {% with messages=get_flashed_messages(with_categories=true) %}
             {% for category, message in messages %}
-            <div class='alert alert-{{category}} text-center alert-dismissible fade show' style="width: 100%;padding-right: 0;padding-left: 0;">
+            <div class='alert alert-{{category}} text-center alert-dismissible fade show'
+              style="width: 100%;padding-right: 0;padding-left: 0;">
               {{ message}}
-              <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close" style="float: right;border: 0;background-color:transparent;">
+              <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close"
+                style="float: right;border: 0;background-color:transparent;">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             {% endfor %}
-            {% endwith %}
+            {% endwith %} -->
             <div class="card mb-3">
-            
+
               <div class="card-body">
 
                 <div class="pt-4 pb-2">
@@ -54,9 +56,11 @@
                     <div class="input-group has-validation">
                       <span class="input-group-text" id="inputGroupPrepend">@</span>
                       {% if value!=None %}
-                      <input type="text" name="username" class="form-control" id="yourUsername" value={{value}} placeholder="Username or Email" required>
+                      <input type="text" name="username" class="form-control" id="yourUsername" value={{value}}
+                        placeholder="Username or Email" required>
                       {% else %}
-                      <input type="text" name="username" class="form-control" id="yourUsername" placeholder="Username or Email" required>
+                      <input type="text" name="username" class="form-control" id="yourUsername"
+                        placeholder="Username or Email" required>
                       {% endif %}
                       <div class="invalid-feedback">Please enter your username.</div>
                     </div>
@@ -64,13 +68,15 @@
 
                   <div class="col-12">
                     <label for="yourPassword" class="form-label">Password</label>
-                    <input type="password" name="password" class="form-control" id="yourPassword" placeholder="Password" required>
+                    <input type="password" name="password" class="form-control" id="yourPassword" placeholder="Password"
+                      required>
                     <div class="invalid-feedback">Please enter your password!</div>
                   </div>
 
                   <div class="col-12">
                     <div class="form-check">
-                      <input class="form-check-input" type="checkbox" name="remember" value="True" id="rememberMe" {{'checked' if True}}>
+                      <input class="form-check-input" type="checkbox" name="remember" value="True" id="rememberMe"
+                        {{'checked' if True}}>
                       <label class="form-check-label" for="rememberMe">Remember me</label>
                     </div>
                   </div>

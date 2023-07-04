@@ -1,14 +1,15 @@
-from flask import Flask,render_template,request,flash,redirect,url_for,session,current_app
+from flask import Flask,render_template,request,flash,redirect,session,current_app
 from static.forms.contact import send_email,is_valid
 from flask_bcrypt import Bcrypt
-from flask_login import UserMixin, login_user,LoginManager,logout_user,user_logged_in,user_login_confirmed,user_logged_out
+from flask_login import UserMixin, login_user,LoginManager,logout_user
 from datetime import datetime,timedelta
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 import os
 from dotenv import load_dotenv
 from functools import wraps
-from bson import objectid
+from flask_toastr import Toastr
+
 
 class User(UserMixin):
     def __init__(self,user_document):
@@ -20,8 +21,8 @@ class User(UserMixin):
 load_dotenv()
 uri = os.environ.get("DATABASE_URL")
 client = MongoClient(uri, server_api=ServerApi('1'))
-# client.get_database('Auth').get_collection('users') = client.get_database('Auth').get_collection('users')
-# contact_db = client.get_database("Contact").get_collection("users")
+auth_db = client.get_database('Auth').get_collection('users')
+contact_db = client.get_database("Contact").get_collection("users")
 
 login_manager = LoginManager()
 login_manager.session_protection = "strong"
@@ -56,6 +57,24 @@ App = Flask(__name__)
 App.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
 login_manager.init_app(App)
 bcrypt.init_app(App)
+toastr = Toastr(app=App)
+# toastr.options = {
+#   "closeButton": True,
+#   "debug": False,
+#   "newestOnTop": False,
+#   "progressBar": True,
+#   "positionClass": "toastr-top-center",
+#   "preventDuplicates": True,
+#   "onclick": None,
+#   "showDuration": "300",
+#   "hideDuration": "1000",
+#   "timeOut": "5000",
+#   "extendedTimeOut": "1000",
+#   "showEasing": "swing",
+#   "hideEasing": "linear",
+#   "showMethod": "fadeIn",
+#   "hideMethod": "fadeOut"
+# }
 
 @App.before_request
 def session_handler():
@@ -76,15 +95,22 @@ def check_password(user,given,remember,source):
         user_object = User(user)
         current_user = user_object
         login_user(user_object,remember=remember)
-        session['logged_in'],session['name'],session['username'],session['email'] = True,user_object.name,user_object.username,user_object.email
-        flash("Login Successfull" , 'success')
+        # session['logged_in'],session['name'],session['username'],session['email'] = True,user_object.name,user_object.username,user_object.email
+        # session['_flashes'].clear()
+        print(session)
+        flash({'title': "Success", 'message': "Login Successfull"}, 'success')
+        # flash("Login Successfull" , 'success')
         return redirect('/')
     else:
-        flash("Invalid Password !",'danger')
+        # session['_flashes'].clear()
+        flash({'title': "Error", 'message': "Invalid Password !"}, 'error')
+        # flash("Invalid Password !",'danger')
+        print(session)
         return render_template('extra/login.html',value=user[f'{source}'])
 
 @App.route("/")
 def home():
+    print(session)
     return render_template("main/index.html")
 
 @App.route("/Login",methods=["GET","POST"])
@@ -98,13 +124,15 @@ def login():
             remember = request.form['remember']
         except:
             remember = False
-        user_with_name , user_with_email = client.get_database('Auth').get_collection('users').find_one(filter={'username' : f'{username}'}) , client.get_database('Auth').get_collection('users').find_one(filter={'email' : f'{username}'})    
+        user_with_name , user_with_email = auth_db.find_one(filter={'username' : f'{username}'}) , auth_db.find_one(filter={'email' : f'{username}'})    
         if user_with_name!=None and user_with_email==None:
             return check_password(user_with_name,password,remember=remember,source='username')
         elif user_with_name==None and user_with_email!=None:
             return check_password(user_with_email,password,remember=remember,source='email')
         else:
-            flash("Invalid Username or Email !",'danger')
+            # session['_flashes'].clear()
+            flash({'title': "Error", 'message': "Invalid Username or Email !"}, 'error')
+            # flash("Invalid Username or Email !",'danger')
             return render_template('extra/login.html',value=username)
     else: return None
 
@@ -117,16 +145,22 @@ def register():
         email = request.form['email']
         username = request.form['username']
         password = bcrypt.generate_password_hash(request.form['password']).decode('utf-8')
-        if client.get_database('Auth').get_collection('users').find_one(filter={'email' : f'{email}'}) == None:
-            if client.get_database('Auth').get_collection('users').find_one(filter={'username' : f'{username}'}) == None:
-                client.get_database('Auth').get_collection('users').insert_one({'name' : f'{name}' , 'email' : f'{email}' , 'username' : f'{username}' , 'password' : f'{password}'})
-                flash("Registered Successfully !",'success')
+        if auth_db.find_one(filter={'email' : f'{email}'}) == None:
+            if auth_db.find_one(filter={'username' : f'{username}'}) == None:
+                auth_db.insert_one({'name' : f'{name}' , 'email' : f'{email}' , 'username' : f'{username}' , 'password' : f'{password}'})
+                # session['_flashes'].clear()
+                # flash("Registered Successfully !",'success')
+                flash({'title': "Success", 'message': "Registered Successfully!"}, 'success')
                 return render_template('extra/login.html',value=username)
             else:
-                flash("Username Already Exists !",'warning')
+                # session['_flashes'].clear()
+                flash({'title': "Warning", 'message': "Username Already Exists !"}, 'warning')
+                # flash("Username Already Exists !",'warning')
                 return render_template('extra/register.html',value={'name' : f'{name}' , 'email' : f'{email}' , 'username' : f'{username}'})
         else:
-            flash("Email Already Exists !",'warning')
+            # session['_flashes'].clear()
+            # flash("Email Already Exists !",'warning')
+            flash({'title': "Warning", 'message': "Email Already Exists !"}, 'warning')
             return render_template('extra/register.html',value={'name' : f'{name}' , 'email' : f'{email}' , 'username' : f'{username}'})
     else: return None
 
@@ -159,16 +193,22 @@ def contact():
         subject = request.form['subject']
         message = request.form['message']
         sent = True
-        if client.get_database("Contact").get_collection("users").find_one(filter={'email' : f'{email}'}) == None:          
+        if contact_db.find_one(filter={'email' : f'{email}'}) == None:          
             if is_valid(email):
-                client.get_database("Contact").get_collection("users").insert_one( {'date_time' : f'{datetime.now()}' , 'name' : f'{name}' , 'email' : f'{email}' , 'subject' : f'{subject}' , 'message' : f'{message}' } )
+                contact_db.insert_one( {'date_time' : f'{datetime.now()}' , 'name' : f'{name}' , 'email' : f'{email}' , 'subject' : f'{subject}' , 'message' : f'{message}' } )
                 sent = send_email(name,email,subject,message,other=True)
+                # session['_flashes'].clear()
+                flash({'title': "Success", 'message': "Message Sent Successfully !"}, 'success')
             else:
                 sent = False
-            return render_template("contact/contact_result.html",value=sent)
+                # session['_flashes'].clear()
+                flash({'title': "Error", 'message': "Please Provide A Working Email !"}, 'error')
+            return redirect('/')# render_template("contact/contact_result.html",value=sent)
         else:
             sent = 'old'
-            return render_template("contact/contact_result.html",value=sent)
+            # session['_flashes'].clear()
+            flash({'title': "Information", 'message': "Message Already Sent Please Wait For Support !"}, 'info')
+            return redirect('/')# render_template("contact/contact_result.html",value=sent)
     else:
         return False
 
@@ -178,18 +218,20 @@ def contact():
 @App.route("/dashboard")
 @login_required
 def user_about(userid):
-    user = client.get_database('Auth').get_collection('users').find_one(filter={'_id' : f'{userid}'})
+    user = auth_db.find_one(filter={'_id' : f'{userid}'})
     return f"Name = {user['name']}<br>Email = {user['email']}<br>Username = {user['username']}"
 
 @App.route("/Logout")
 @login_required
 def logout():
-    print(current_user,type(current_user))
-    if session['logged_in']==True:
-        session['logged_in']=False
-        logout_user()
-        flash("Logged Out Successfully !","success")
-        return redirect('Login')
+    # print(current_user,type(current_user))
+    # if session['logged_in']==True:
+    #     session['logged_in']=False
+    logout_user()
+    # session['_flashes'].clear()
+    flash({'title': "Success", 'message': "Logged Out Successfully !"}, 'success')
+    # flash("Logged Out Successfully !","success")
+    return redirect('Login')
 
 if __name__ == "__main__":
     if connection_result(client) == True :

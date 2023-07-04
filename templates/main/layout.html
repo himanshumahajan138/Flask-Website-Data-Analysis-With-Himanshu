@@ -14,7 +14,9 @@
   <!-- <link href="{{url_for('static' , filename = 'assets/img/apple-touch-icon.png')}}" rel="apple-touch-icon"> -->
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+    rel="stylesheet">
 
   <!-- Vendor CSS Files -->
   <link href="{{url_for('static' , filename = 'assets/vendor/aos/aos.css')}}" rel="stylesheet">
@@ -26,7 +28,11 @@
 
   <!-- Template Main CSS File -->
   <link href="{{url_for('static' , filename = 'assets/css/style.css')}}" rel="stylesheet">
-  
+
+  {{ toastr.include_jquery() }}
+  {{ toastr.include_toastr_css() }}
+  {{ toastr.message() }}
+
 </head>
 
 <body>
@@ -36,9 +42,9 @@
       <div class="logo">
         <h1>
           <a href="/">Data Analysis <span style="font-size: 15px;font-weight: 300;">With Himanshu</span></a>
-        </h1>        
+        </h1>
       </div>
-      
+
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="nav-link scrollto active" href="/#hero">Home</a></li>
@@ -97,63 +103,66 @@
             </ul>
           </li>
           <li><a class="nav-link scrollto" href="/#contact">Contact</a></li>
-          {% if session['logged_in']==True  %}
-          <li class="getstarted dropdown" style="border-radius: 50%;padding:6px 12px;">{{(session['name'])[0]}}
+          {% if current_user.is_authenticated %}
+          <li class="getstarted dropdown" style="border-radius: 50%;padding:6px 12px;">{{current_user.name[0]}}
             <ul>
               <li class="dropdown"><a href="#"><span>About</span></a></li>
               <li class="dropdown"><a href="/Logout"><span>Logout</span></a></li>
             </ul>
           </li>
           {% else %}
-          <li><a class="getstarted scrollto" href="/Login">Get Started</a></li>
+          <li><a class="getstarted scrollto" href="/Login">Login</a></li>
           {% endif %}
-        <i class="bi bi-list mobile-nav-toggle"></i>
+          <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
 
     </div>
   </header><!-- End Header -->
 
-{% block body %}
+  {{ toastr.include_toastr_js() }}
+  {% block body %}
 
-{% endblock %}
+  {% endblock %}
 
-<!-- ======= Footer ======= -->
+  <!-- ======= Footer ======= -->
   <footer id="footer">
-        <div class="container">
-          <div class="row d-flex align-items-center">
-            <div class="col-lg-6 text-lg-left text-center">
-              <div class="copyright">
-                &copy; Copyright <strong>Data Analysis With Himanshu</strong>. All Rights Reserved
-              </div>
-              <div class="credits">
-                Designed by <a href="https://www.linkedin.com/in/himanshu-mahajan-a0242026a" target="_blank" rel="noopener noreferrer">Himanshu Mahajan</a>
-              </div>
-            </div>
-            <div class="col-lg-6">
-              <nav class="footer-links text-lg-right text-center pt-2 pt-lg-0">
-                <a href="/#intro" class="scrollto">Home</a>
-                <a href="/#about" class="scrollto">About</a>
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Use</a>
-              </nav>
-            </div>
+    <div class="container">
+      <div class="row d-flex align-items-center">
+        <div class="col-lg-6 text-lg-left text-center">
+          <div class="copyright">
+            &copy; Copyright <strong>Data Analysis With Himanshu</strong>. All Rights Reserved
+          </div>
+          <div class="credits">
+            Designed by <a href="https://www.linkedin.com/in/himanshu-mahajan-a0242026a" target="_blank"
+              rel="noopener noreferrer">Himanshu Mahajan</a>
           </div>
         </div>
-      </footer><!-- End Footer -->
-    
-      <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-    
-      <!-- Vendor JS Files -->
-      <script src="{{url_for('static' , filename = 'assets/vendor/purecounter/purecounter_vanilla.js')}}"></script>
-      <script src="{{url_for('static' , filename = 'assets/vendor/aos/aos.js')}}"></script>
-      <script src="{{url_for('static' , filename = 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
-      <script src="{{url_for('static' , filename = 'assets/vendor/glightbox/js/glightbox.min.js')}}"></script>
-      <script src="{{url_for('static' , filename = 'assets/vendor/isotope-layout/isotope.pkgd.min.js')}}"></script>
-      <script src="{{url_for('static' , filename = 'assets/vendor/swiper/swiper-bundle.min.js')}}"></script>
-    
-      <!-- Template Main JS File -->
-      <script src="{{url_for('static',filename='assets/js/main.js')}}"></script>
-    
-    </body>
-    
-    </html>
+        <div class="col-lg-6">
+          <nav class="footer-links text-lg-right text-center pt-2 pt-lg-0">
+            <a href="/#intro" class="scrollto">Home</a>
+            <a href="/#about" class="scrollto">About</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Use</a>
+          </nav>
+        </div>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
+      class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{{url_for('static' , filename = 'assets/vendor/purecounter/purecounter_vanilla.js')}}"></script>
+  <script src="{{url_for('static' , filename = 'assets/vendor/aos/aos.js')}}"></script>
+  <script src="{{url_for('static' , filename = 'assets/vendor/bootstrap/js/bootstrap.bundle.min.js')}}"></script>
+  <script src="{{url_for('static' , filename = 'assets/vendor/glightbox/js/glightbox.min.js')}}"></script>
+  <script src="{{url_for('static' , filename = 'assets/vendor/isotope-layout/isotope.pkgd.min.js')}}"></script>
+  <script src="{{url_for('static' , filename = 'assets/vendor/swiper/swiper-bundle.min.js')}}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{{url_for('static',filename='assets/js/main.js')}}"></script>
+
+</body>
+
+</html>
