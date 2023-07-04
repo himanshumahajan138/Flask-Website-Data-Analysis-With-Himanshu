@@ -20,6 +20,8 @@ class User(UserMixin):
 load_dotenv()
 uri = os.environ.get("MONGODB_URI")
 client = MongoClient(uri, server_api=ServerApi('1'))
+auth_db = client.get_database('Auth').get_collection('users')
+contact_db = client.get_database("Contact").get_collection("users")
 
 login_manager = LoginManager()
 login_manager.session_protection = "strong"
@@ -191,8 +193,6 @@ def logout():
 
 if __name__ == "__main__":
     if connection_result(client) == True :
-        auth_db = client.get_database('Auth').get_collection('users')
-        contact_db = client.get_database("Contact").get_collection("users")
         App.run(debug=True)
     else :
         print(connection_result(client))
