@@ -1,86 +1,14 @@
-from flask import Flask,render_template,request,flash,redirect,session,current_app
-from static.forms.contact import send_email,is_valid
+from flask import Flask,render_template,request,flash,redirect,session
 from flask_bcrypt import Bcrypt
-from flask_login import UserMixin, login_user,LoginManager,logout_user
-from datetime import datetime,timedelta
+from flask_login import login_user,LoginManager,login_required,logout_user
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
 import os
+from datetime import datetime,timedelta
 from dotenv import load_dotenv
-from functools import wraps
 from flask_toastr import Toastr
-
-
-class User(UserMixin):
-    def __init__(self,user_document):
-        self.id = self
-        self.name = user_document['name']
-        self.username = user_document['username']
-        self.email = user_document['email']
-
-load_dotenv()
-uri = os.environ.get("DATABASE_URL")
-client = MongoClient(uri, server_api=ServerApi('1'))
-auth_db = client.get_database('Auth').get_collection('users')
-contact_db = client.get_database("Contact").get_collection("users")
-
-login_manager = LoginManager()
-login_manager.session_protection = "strong"
-login_manager.login_view = "login"
-login_manager.login_message_category = "info"
-bcrypt = Bcrypt()
-current_user = None
-
-@login_manager.user_loader
-def load_user(user_id):
-    global current_user
-    user_id = current_user
-    return user_id
-
-def login_required(func):
-    @wraps(func)
-    def decorated_view(*args, **kwargs):
-        EXEMPT_METHODS = {"OPTIONS"}
-        if request.method in EXEMPT_METHODS or current_app.config.get("LOGIN_DISABLED"):
-            pass
-        elif not current_user.is_authenticated:
-            return current_app.login_manager.unauthorized()
-        
-        if callable(getattr(current_app, "ensure_sync", None)):
-            return current_app.ensure_sync(func)(*args, **kwargs)
-        return func(*args, **kwargs)
-
-    return decorated_view
-
-
-App = Flask(__name__)
-App.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
-login_manager.init_app(App)
-bcrypt.init_app(App)
-toastr = Toastr(app=App)
-# toastr.options = {
-#   "closeButton": True,
-#   "debug": False,
-#   "newestOnTop": False,
-#   "progressBar": True,
-#   "positionClass": "toastr-top-center",
-#   "preventDuplicates": True,
-#   "onclick": None,
-#   "showDuration": "300",
-#   "hideDuration": "1000",
-#   "timeOut": "5000",
-#   "extendedTimeOut": "1000",
-#   "showEasing": "swing",
-#   "hideEasing": "linear",
-#   "showMethod": "fadeIn",
-#   "hideMethod": "fadeOut"
-# }
-
-@App.before_request
-def session_handler():
-    session.permanent = True
-    App.permanent_session_lifetime = timedelta(minutes=1)
-
+from users import User
+from static.forms.contact import is_valid,send_email
 
 def connection_result(client):
     try:
@@ -95,23 +23,43 @@ def check_password(user,given,remember,source):
         user_object = User(user)
         current_user = user_object
         login_user(user_object,remember=remember)
-        # session['logged_in'],session['name'],session['username'],session['email'] = True,user_object.name,user_object.username,user_object.email
-        # session['_flashes'].clear()
-        print(session)
         flash({'title': "Success", 'message': "Login Successfull"}, 'success')
-        # flash("Login Successfull" , 'success')
         return redirect('/')
     else:
-        # session['_flashes'].clear()
         flash({'title': "Error", 'message': "Invalid Password !"}, 'error')
-        # flash("Invalid Password !",'danger')
-        print(session)
         return render_template('extra/login.html',value=user[f'{source}'])
+
+load_dotenv()
+uri = os.environ.get("DATABASE_URL")
+client = MongoClient(uri, server_api=ServerApi('1'))
+auth_db = client.get_database('Auth').get_collection('users')
+contact_db = client.get_database("Contact").get_collection("users")
+login_manager = LoginManager()
+login_manager.session_protection = "strong"
+login_manager.login_view = "login"
+login_manager.login_message_category = "info"
+bcrypt = Bcrypt()
+
+@login_manager.user_loader
+def load_user(user_id):
+    global current_user
+    user_id = current_user
+    return user_id
+
+App = Flask(__name__)
+App.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
+login_manager.init_app(App)
+bcrypt.init_app(App)
+toastr = Toastr(app=App)
 
 @App.route("/")
 def home():
-    print(session)
     return render_template("main/index.html")
+
+@App.before_request
+def session_handler():
+    session.permanent = True
+    App.permanent_session_lifetime = timedelta(minutes=1)
 
 @App.route("/Login",methods=["GET","POST"])
 def login():
@@ -130,9 +78,7 @@ def login():
         elif user_with_name==None and user_with_email!=None:
             return check_password(user_with_email,password,remember=remember,source='email')
         else:
-            # session['_flashes'].clear()
-            flash({'title': "Error", 'message': "Invalid Username or Email !"}, 'error')
-            # flash("Invalid Username or Email !",'danger')
+            flash({'title': "Error", 'message': "Invalid Username or Email !",'options':{'TOASTR_POSITION_CLASS':'toast-top-center'}}, 'error')
             return render_template('extra/login.html',value=username)
     else: return None
 
@@ -148,22 +94,15 @@ def register():
         if auth_db.find_one(filter={'email' : f'{email}'}) == None:
             if auth_db.find_one(filter={'username' : f'{username}'}) == None:
                 auth_db.insert_one({'name' : f'{name}' , 'email' : f'{email}' , 'username' : f'{username}' , 'password' : f'{password}'})
-                # session['_flashes'].clear()
-                # flash("Registered Successfully !",'success')
                 flash({'title': "Success", 'message': "Registered Successfully!"}, 'success')
                 return render_template('extra/login.html',value=username)
             else:
-                # session['_flashes'].clear()
-                flash({'title': "Warning", 'message': "Username Already Exists !"}, 'warning')
-                # flash("Username Already Exists !",'warning')
+                flash({'title': "Warning", 'message': "Username Already Exists !",}, 'warning')
                 return render_template('extra/register.html',value={'name' : f'{name}' , 'email' : f'{email}' , 'username' : f'{username}'})
         else:
-            # session['_flashes'].clear()
-            # flash("Email Already Exists !",'warning')
             flash({'title': "Warning", 'message': "Email Already Exists !"}, 'warning')
             return render_template('extra/register.html',value={'name' : f'{name}' , 'email' : f'{email}' , 'username' : f'{username}'})
     else: return None
-
 
 @App.route("/DA-1")
 @App.route("/DA-2")
@@ -192,28 +131,19 @@ def contact():
         email = request.form['email']
         subject = request.form['subject']
         message = request.form['message']
-        sent = True
         if contact_db.find_one(filter={'email' : f'{email}'}) == None:          
             if is_valid(email):
                 contact_db.insert_one( {'date_time' : f'{datetime.now()}' , 'name' : f'{name}' , 'email' : f'{email}' , 'subject' : f'{subject}' , 'message' : f'{message}' } )
-                sent = send_email(name,email,subject,message,other=True)
-                # session['_flashes'].clear()
+                send_email(name,email,subject,message,other=True)
                 flash({'title': "Success", 'message': "Message Sent Successfully !"}, 'success')
-            else:
-                sent = False
-                # session['_flashes'].clear()
+            else:                
                 flash({'title': "Error", 'message': "Please Provide A Working Email !"}, 'error')
-            return redirect('/')# render_template("contact/contact_result.html",value=sent)
+            return redirect('/')
         else:
-            sent = 'old'
-            # session['_flashes'].clear()
             flash({'title': "Information", 'message': "Message Already Sent Please Wait For Support !"}, 'info')
-            return redirect('/')# render_template("contact/contact_result.html",value=sent)
+            return redirect('/')
     else:
         return False
-
-
-
 
 @App.route("/dashboard")
 @login_required
@@ -224,13 +154,8 @@ def user_about(userid):
 @App.route("/Logout")
 @login_required
 def logout():
-    # print(current_user,type(current_user))
-    # if session['logged_in']==True:
-    #     session['logged_in']=False
     logout_user()
-    # session['_flashes'].clear()
     flash({'title': "Success", 'message': "Logged Out Successfully !"}, 'success')
-    # flash("Logged Out Successfully !","success")
     return redirect('Login')
 
 if __name__ == "__main__":
