@@ -1,59 +1,70 @@
 {% extends "main/layout.html" %}
 {% block body %}
 <style>
-.card {
-  margin-bottom: 30px;
-  border: none;
-  border-radius: 5px;
-  box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
-}
+  .card {
+    margin-bottom: 30px;
+    border: none;
+    border-radius: 5px;
+    box-shadow: 0px 0 30px rgba(1, 41, 112, 0.1);
+  }
 
-.card-title {
-  padding: 20px 0 15px 0;
-  font-size: 18px;
-  font-weight: 500;
-  color: #012970;
-  font-family: "Poppins", sans-serif;
-}
+  .card-title {
+    padding: 20px 0 15px 0;
+    font-size: 18px;
+    font-weight: 500;
+    color: #012970;
+    font-family: "Poppins", sans-serif;
+  }
 
-.card-body {
-  padding: 0 20px 20px 20px;
-}
-
-
+  .card-body {
+    padding: 0 20px 20px 20px;
+  }
 </style>
 <main id="main">
-
+  
   <div class="container">
-
+    
     <section class="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
       <div class="container">
         <div class="row justify-content-center">
           <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
-
+            {% with messages=get_flashed_messages(with_categories=true) %}
+            {% for category, message in messages %}
+            <div class='alert alert-{{category}} text-center alert-dismissible fade show' style="width: 100%;padding-right: 0;padding-left: 0;">
+              {{ message}}
+              <button type="button" class="close" data-bs-dismiss="alert" aria-label="Close" style="float: right;border: 0;background-color:transparent;">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            {% endfor %}
+            {% endwith %}
             <div class="card mb-3">
-
+            
               <div class="card-body">
 
                 <div class="pt-4 pb-2">
                   <h5 class="card-title text-center pb-0 fs-4">Login to Your Account</h5>
-                  <p class="text-center small">Enter your username & password to login</p>
+                  <p class="text-center small">Enter your username or email & password to login</p>
                 </div>
 
-                <form class="row g-3 needs-validation" role="form" action="/Login-Validation" method="post" novalidate>
+                <form class="row g-3 needs-validation" role="form" action="/Login" method="post">
 
                   <div class="col-12">
-                    <label for="yourUsername" class="form-label">Username</label>
+                    <label for="yourUsername" class="form-label">Username or Email</label>
                     <div class="input-group has-validation">
                       <span class="input-group-text" id="inputGroupPrepend">@</span>
-                      <input type="text" name="username" class="form-control" id="yourUsername" required>
+                      {% if value!=None %}
+                      <input type="text" name="username" class="form-control" id="yourUsername" value={{value}} placeholder="Username or Email" required>
+                      {% else %}
+                      <input type="text" name="username" class="form-control" id="yourUsername" placeholder="Username or Email" required>
+                      {% endif %}
                       <div class="invalid-feedback">Please enter your username.</div>
                     </div>
                   </div>
 
                   <div class="col-12">
                     <label for="yourPassword" class="form-label">Password</label>
-                    <input type="password" name="password" class="form-control" id="yourPassword" required>
+                    <input type="password" name="password" class="form-control" id="yourPassword" placeholder="Password" required>
                     <div class="invalid-feedback">Please enter your password!</div>
                   </div>
 
@@ -67,9 +78,9 @@
                     <button class="btn btn-primary w-100" type="submit">Login</button>
                   </div>
                   <div class="col-12">
-                    <p class="small mb-0">Don't have account? <a href="/">Create an account</a></p>
+                    <p class="small mb-0">Don't have account? <a href="/Register">Create an account</a></p>
                   </div>
-                </form> 
+                </form>
               </div>
             </div>
           </div>

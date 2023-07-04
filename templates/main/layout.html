@@ -97,8 +97,16 @@
             </ul>
           </li>
           <li><a class="nav-link scrollto" href="/#contact">Contact</a></li>
+          {% if session['logged_in']==True  %}
+          <li class="getstarted dropdown" style="border-radius: 50%;padding:6px 12px;">{{(session['name'])[0]}}
+            <ul>
+              <li class="dropdown"><a href="#"><span>About</span></a></li>
+              <li class="dropdown"><a href="/Logout"><span>Logout</span></a></li>
+            </ul>
+          </li>
+          {% else %}
           <li><a class="getstarted scrollto" href="/Login">Get Started</a></li>
-        </ul>
+          {% endif %}
         <i class="bi bi-list mobile-nav-toggle"></i>
       </nav><!-- .navbar -->
 
