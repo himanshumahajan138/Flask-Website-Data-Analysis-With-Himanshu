@@ -18,7 +18,7 @@ class User(UserMixin):
         self.email = user_document['email']
 
 load_dotenv()
-uri = os.environ.get("MONGODB_URI")
+uri = os.environ.get("DATABASE_URL")
 client = MongoClient(uri, server_api=ServerApi('1'))
 # client.get_database('Auth').get_collection('users') = client.get_database('Auth').get_collection('users')
 # contact_db = client.get_database("Contact").get_collection("users")
