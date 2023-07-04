@@ -20,8 +20,8 @@ class User(UserMixin):
 load_dotenv()
 uri = os.environ.get("MONGODB_URI")
 client = MongoClient(uri, server_api=ServerApi('1'))
-auth_db = client.get_database('Auth').get_collection('users')
-contact_db = client.get_database("Contact").get_collection("users")
+# client.get_database('Auth').get_collection('users') = client.get_database('Auth').get_collection('users')
+# contact_db = client.get_database("Contact").get_collection("users")
 
 login_manager = LoginManager()
 login_manager.session_protection = "strong"
@@ -98,7 +98,7 @@ def login():
             remember = request.form['remember']
         except:
             remember = False
-        user_with_name , user_with_email = auth_db.find_one(filter={'username' : f'{username}'}) , auth_db.find_one(filter={'email' : f'{username}'})    
+        user_with_name , user_with_email = client.get_database('Auth').get_collection('users').find_one(filter={'username' : f'{username}'}) , client.get_database('Auth').get_collection('users').find_one(filter={'email' : f'{username}'})    
         if user_with_name!=None and user_with_email==None:
             return check_password(user_with_name,password,remember=remember,source='username')
         elif user_with_name==None and user_with_email!=None:
@@ -117,9 +117,9 @@ def register():
         email = request.form['email']
         username = request.form['username']
         password = bcrypt.generate_password_hash(request.form['password']).decode('utf-8')
-        if auth_db.find_one(filter={'email' : f'{email}'}) == None:
-            if auth_db.find_one(filter={'username' : f'{username}'}) == None:
-                auth_db.insert_one({'name' : f'{name}' , 'email' : f'{email}' , 'username' : f'{username}' , 'password' : f'{password}'})
+        if client.get_database('Auth').get_collection('users').find_one(filter={'email' : f'{email}'}) == None:
+            if client.get_database('Auth').get_collection('users').find_one(filter={'username' : f'{username}'}) == None:
+                client.get_database('Auth').get_collection('users').insert_one({'name' : f'{name}' , 'email' : f'{email}' , 'username' : f'{username}' , 'password' : f'{password}'})
                 flash("Registered Successfully !",'success')
                 return render_template('extra/login.html',value=username)
             else:
@@ -159,9 +159,9 @@ def contact():
         subject = request.form['subject']
         message = request.form['message']
         sent = True
-        if contact_db.find_one(filter={'email' : f'{email}'}) == None:          
+        if client.get_database("Contact").get_collection("users").find_one(filter={'email' : f'{email}'}) == None:          
             if is_valid(email):
-                contact_db.insert_one( {'date_time' : f'{datetime.now()}' , 'name' : f'{name}' , 'email' : f'{email}' , 'subject' : f'{subject}' , 'message' : f'{message}' } )
+                client.get_database("Contact").get_collection("users").insert_one( {'date_time' : f'{datetime.now()}' , 'name' : f'{name}' , 'email' : f'{email}' , 'subject' : f'{subject}' , 'message' : f'{message}' } )
                 sent = send_email(name,email,subject,message,other=True)
             else:
                 sent = False
@@ -178,7 +178,7 @@ def contact():
 @App.route("/dashboard")
 @login_required
 def user_about(userid):
-    user = auth_db.find_one(filter={'_id' : f'{userid}'})
+    user = client.get_database('Auth').get_collection('users').find_one(filter={'_id' : f'{userid}'})
     return f"Name = {user['name']}<br>Email = {user['email']}<br>Username = {user['username']}"
 
 @App.route("/Logout")
