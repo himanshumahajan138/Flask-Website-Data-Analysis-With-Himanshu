@@ -1,0 +1,35 @@
+{% extends "main/layout.html" %}
+{% block body %}
+
+<main id="main">
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+        <div class="container">
+
+            <div class="d-flex justify-content-between align-items-center">
+                <h2>Error</h2>
+                <ol>
+                    <li><a href="/">Home</a></li>
+                    <li>Error</li>
+                </ol>
+            </div>
+
+        </div>
+    </section><!-- End Breadcrumbs -->
+    <div class="container">
+        <section class="section error-404 min-vh-100 d-flex flex-column align-items-center justify-content-center">
+            <h1>404</h1><br><br>
+            <h2>The page you are looking for doesn't exist.</h2>
+            <a class="btn" href="/">Back to home</a>
+            <img src="{{url_for('static',filename='assets/img/not-found.svg')}}" class="img-fluid py-5" alt="Page Not Found">
+            <div class="credits">
+                <a href="https://www.linkedin.com/in/himanshu-mahajan-a0242026a" target="_blank"
+              rel="noopener noreferrer">
+            </div>
+        </section>
+
+    </div>
+</main><!-- End #main -->
+
+
+{% endblock %}

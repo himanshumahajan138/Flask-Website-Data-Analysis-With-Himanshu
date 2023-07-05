@@ -27,7 +27,7 @@ def check_password(user,given,remember,source):
         return redirect('/')
     else:
         flash({'title': "Error", 'message': "Invalid Password !"}, 'error')
-        return render_template('extra/login.html',value=user[f'{source}'])
+        return render_template('auth/login.html',value=user[f'{source}'])
 
 load_dotenv()
 uri = os.environ.get("DATABASE_URL")
@@ -39,12 +39,16 @@ login_manager.session_protection = "strong"
 login_manager.login_view = "login"
 login_manager.login_message_category = "info"
 bcrypt = Bcrypt()
+current_user=None
 
 @login_manager.user_loader
 def load_user(user_id):
     global current_user
-    user_id = current_user
-    return user_id
+    if current_user == None:
+            logout_user()
+    else:
+        user_id = current_user
+        return user_id
 
 App = Flask(__name__)
 App.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
@@ -64,7 +68,7 @@ def session_handler():
 @App.route("/Login",methods=["GET","POST"])
 def login():
     if request.method=="GET":
-        return render_template("/extra/login.html",value=None)
+        return render_template("auth/login.html",value=None)
     elif request.method=="POST":
         username = request.form['username']
         password = request.form['password']
@@ -79,13 +83,13 @@ def login():
             return check_password(user_with_email,password,remember=remember,source='email')
         else:
             flash({'title': "Error", 'message': "Invalid Username or Email !",'options':{'TOASTR_POSITION_CLASS':'toast-top-center'}}, 'error')
-            return render_template('extra/login.html',value=username)
+            return render_template('auth/login.html',value=username)
     else: return None
 
 @App.route("/Register",methods=["GET","POST"])
 def register():
     if request.method=="GET":
-        return render_template("/extra/register.html",value=None)
+        return render_template("auth/register.html",value=None)
     elif request.method=="POST":
         name = request.form['name']
         email = request.form['email']
@@ -95,13 +99,13 @@ def register():
             if auth_db.find_one(filter={'username' : f'{username}'}) == None:
                 auth_db.insert_one({'name' : f'{name}' , 'email' : f'{email}' , 'username' : f'{username}' , 'password' : f'{password}'})
                 flash({'title': "Success", 'message': "Registered Successfully!"}, 'success')
-                return render_template('extra/login.html',value=username)
+                return render_template('auth/login.html',value=username)
             else:
                 flash({'title': "Warning", 'message': "Username Already Exists !",}, 'warning')
-                return render_template('extra/register.html',value={'name' : f'{name}' , 'email' : f'{email}' , 'username' : f'{username}'})
+                return render_template('auth/register.html',value={'name' : f'{name}' , 'email' : f'{email}' , 'username' : f'{username}'})
         else:
             flash({'title': "Warning", 'message': "Email Already Exists !"}, 'warning')
-            return render_template('extra/register.html',value={'name' : f'{name}' , 'email' : f'{email}' , 'username' : f'{username}'})
+            return render_template('auth/register.html',value={'name' : f'{name}' , 'email' : f'{email}' , 'username' : f'{username}'})
     else: return None
 
 @App.route("/DA-1")
@@ -145,11 +149,10 @@ def contact():
     else:
         return False
 
-@App.route("/dashboard")
+@App.route("/User-Profile")
 @login_required
-def user_about(userid):
-    user = auth_db.find_one(filter={'_id' : f'{userid}'})
-    return f"Name = {user['name']}<br>Email = {user['email']}<br>Username = {user['username']}"
+def profile():
+    return render_template('profile/user-profile.html')
 
 @App.route("/Logout")
 @login_required
@@ -157,6 +160,9 @@ def logout():
     logout_user()
     flash({'title': "Success", 'message': "Logged Out Successfully !"}, 'success')
     return redirect('Login')
+@App.errorhandler(404)
+def not_found(error):
+    return render_template("extra/404.html")
 
 if __name__ == "__main__":
     if connection_result(client) == True :
