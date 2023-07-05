@@ -104,14 +104,7 @@
           </li>
           <li><a class="nav-link scrollto" href="/#contact">Contact</a></li>
           {% if current_user.is_authenticated %}
-          <!-- <li class="getstarted dropdown" style="border-radius: 50%;padding:6px 12px;">{{current_user.name[0]}}
-            <ul>
-              <li class="dropdown"><a href="#"><span>About</span></a></li>
-              <li class="dropdown"><a href="/Logout"><span>Logout</span></a></li>
-            </ul>
-          </li> -->
-          <li class="dropdown">
-
+          <li class="dropdown" style="justify-content: left;">
             <a class="nav-link pe-0" href="#" data-bs-toggle="dropdown">
               <img src="{{ url_for('static',filename = 'assets/img/testimonials/testimonials-1.png')}}" alt="Profile"
                 class="rounded-circle" style="height: 30px;width: 30px;">
