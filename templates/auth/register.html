@@ -66,14 +66,8 @@
 
                                         <div class="col-12">
                                             <label for="yourPassword" class="form-label">Password</label>
-                                            {% if value!=None %}
-                                            <input type="password" name="password" class="form-control"
-                                                id="yourPassword" value={{value['password']}} placeholder="Password"
-                                                required>
-                                            {% else %}
                                             <input type="password" name="password" class="form-control"
                                                 id="yourPassword" placeholder="Password" required>
-                                            {% endif %}
                                             <div class="invalid-feedback">Please enter your password!</div>
                                         </div>
                                         <div class="col-12">

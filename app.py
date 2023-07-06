@@ -50,10 +50,15 @@ toastr = Toastr(app=App)
 
 @login_manager.user_loader
 def load_user(user_id):
-    id = ObjectId(user_id)
-    user_doc = auth_db.find_one(filter={'_id':id})
-    user_obj = User(user_document=user_doc)
-    return user_obj
+        try:
+            user_id=session["_user_id"]
+        except:
+            session.clear()
+        finally:
+            id = ObjectId(user_id)
+            user_doc = auth_db.find_one(filter={'_id':id})
+            user_obj = User(user_document=user_doc)
+            return user_obj
 
 @App.before_request
 def session_handler():
@@ -109,28 +114,34 @@ def register():
                     otp_list=[]
                     otp_list.append(x)
                     send_email(name=user_name,email=user_email,other=True,count=1,otp=otp_list[0])
-                    return render_template('auth/register.html',value={'name' : f'{user_name}' , 'email' : f'{user_email}' , 'username' : f'{user_username}','password':f'{user_password}'},otp_req=True)
+                    return render_template('auth/register.html',value={'name' : f'{user_name}' , 'email' : f'{user_email}' , 'username' : f'{user_username}'},otp_req=True)
                 else:
                     flash({'title': "Warning", 'message': "Username Already Exists !",}, 'warning')
-                    return render_template('auth/register.html',value={'name' : f'{user_name}' , 'email' : f'{user_email}' , 'username' : f'{user_username}','password':f'{user_password}'},otp_req=False)
+                    return render_template('auth/register.html',value={'name' : f'{user_name}' , 'email' : f'{user_email}' , 'username' : f'{user_username}'},otp_req=False)
             else:
                 flash({'title': "Warning", 'message': "Email Already Exists !"}, 'warning')
-                return render_template('auth/register.html',value={'name' : f'{user_name}' , 'email' : f'{user_email}' , 'username' : f'{user_username}','password':f'{user_password}'},otp_req=False)
+                return render_template('auth/register.html',value={'name' : f'{user_name}' , 'email' : f'{user_email}' , 'username' : f'{user_username}'},otp_req=False)
         else: return None
 
 @App.route("/OTP-Validation",methods=["GET","POST"])
 def send_otp():
     if current_user.is_authenticated:
             return redirect("/")
-    elif request.method=="POST":
-        global otp_list,user_name,user_email,user_username,user_password
-        if int(request.form['otp']) in otp_list:
-            auth_db.insert_one({'name' : f'{user_name}' , 'email' : f'{user_email}' , 'username' : f'{user_username}' , 'password' : f'{user_password}'})
-            flash({'title': "Success", 'message': "Registered Successfully!"}, 'success')
-            return render_template('auth/login.html',value=user_username)
+    else:
+        if request.method=="POST":
+            global otp_list,user_name,user_email,user_username,user_password
+            print(int(request.form['otp']),otp_list)
+            if int(request.form['otp']) == otp_list[0]:
+                auth_db.insert_one({'name' : f'{user_name}' , 'email' : f'{user_email}' , 'username' : f'{user_username}' , 'password' : f'{user_password}'})
+                flash({'title': "Success", 'message': "Registered Successfully!"}, 'success')
+                return render_template('auth/login.html',value=user_username)
+            else:
+                flash({'title': "Warning", 'message': "Please Provide Correct OTP !<br>Register Again Please !"}, 'warning')
+                return redirect("/Register")
         else:
-            flash({'title': "Warning", 'message': "Please Provide Correct OTP !",}, 'warning')
+            flash({'title': "Info", 'message': "Please Register first !"}, 'info')
             return redirect("/Register")
+    
 
 @App.route("/DA-1")
 @App.route("/DA-2")
