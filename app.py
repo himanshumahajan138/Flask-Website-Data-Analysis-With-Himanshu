@@ -3,7 +3,7 @@ from flask_bcrypt import Bcrypt
 from flask_login import login_user,LoginManager,login_required,logout_user,current_user
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
-import os
+import os,random
 from datetime import datetime,timedelta
 from dotenv import load_dotenv
 from flask_toastr import Toastr
@@ -28,6 +28,7 @@ def check_password(user,given,remember,source):
         flash({'title': "Error", 'message': "Invalid Password !"}, 'error')
         return render_template('auth/login.html',value=user[f'{source}'])
 
+
 load_dotenv()
 uri = os.environ.get("DATABASE_URL")
 client = MongoClient(uri, server_api=ServerApi('1'))
@@ -45,6 +46,8 @@ login_manager.init_app(App)
 bcrypt.init_app(App)
 toastr = Toastr(app=App)
 
+# App.jinja_env.globals.update(send_otp=send_otp)
+
 @login_manager.user_loader
 def load_user(user_id):
     id = ObjectId(user_id)
@@ -56,6 +59,7 @@ def load_user(user_id):
 def session_handler():
     session.permanent = True
     App.permanent_session_lifetime = timedelta(minutes=1)
+
 
 @App.route("/")
 def home():
@@ -92,24 +96,41 @@ def register():
         return redirect('/')
     else:
         if request.method=="GET":
-            return render_template("auth/register.html",value=None)
+            return render_template("auth/register.html",value=None,otp_req=False)
         elif request.method=="POST":
-            name = request.form['name']
-            email = request.form['email']
-            username = request.form['username']
-            password = bcrypt.generate_password_hash(request.form['password']).decode('utf-8')
-            if auth_db.find_one(filter={'email' : f'{email}'}) == None:
-                if auth_db.find_one(filter={'username' : f'{username}'}) == None:
-                    auth_db.insert_one({'name' : f'{name}' , 'email' : f'{email}' , 'username' : f'{username}' , 'password' : f'{password}'})
-                    flash({'title': "Success", 'message': "Registered Successfully!"}, 'success')
-                    return render_template('auth/login.html',value=username)
+            global otp_list,user_name,user_email,user_username,user_password
+            user_name = request.form['name']
+            user_email = request.form['email']
+            user_username = request.form['username']
+            user_password = bcrypt.generate_password_hash(request.form['password']).decode('utf-8')
+            if auth_db.find_one(filter={'email' : f'{user_email}'}) == None:
+                if auth_db.find_one(filter={'username' : f'{user_username}'}) == None:
+                    x = round(random.random()*1000000)
+                    otp_list=[]
+                    otp_list.append(x)
+                    send_email(name=user_name,email=user_email,other=True,count=1,otp=otp_list[0])
+                    return render_template('auth/register.html',value={'name' : f'{user_name}' , 'email' : f'{user_email}' , 'username' : f'{user_username}','password':f'{user_password}'},otp_req=True)
                 else:
                     flash({'title': "Warning", 'message': "Username Already Exists !",}, 'warning')
-                    return render_template('auth/register.html',value={'name' : f'{name}' , 'email' : f'{email}' , 'username' : f'{username}'})
+                    return render_template('auth/register.html',value={'name' : f'{user_name}' , 'email' : f'{user_email}' , 'username' : f'{user_username}','password':f'{user_password}'},otp_req=False)
             else:
                 flash({'title': "Warning", 'message': "Email Already Exists !"}, 'warning')
-                return render_template('auth/register.html',value={'name' : f'{name}' , 'email' : f'{email}' , 'username' : f'{username}'})
+                return render_template('auth/register.html',value={'name' : f'{user_name}' , 'email' : f'{user_email}' , 'username' : f'{user_username}','password':f'{user_password}'},otp_req=False)
         else: return None
+
+@App.route("/OTP-Validation",methods=["GET","POST"])
+def send_otp():
+    if current_user.is_authenticated:
+            return redirect("/")
+    elif request.method=="POST":
+        global otp_list,user_name,user_email,user_username,user_password
+        if int(request.form['otp']) in otp_list:
+            auth_db.insert_one({'name' : f'{user_name}' , 'email' : f'{user_email}' , 'username' : f'{user_username}' , 'password' : f'{user_password}'})
+            flash({'title': "Success", 'message': "Registered Successfully!"}, 'success')
+            return render_template('auth/login.html',value=user_username)
+        else:
+            flash({'title': "Warning", 'message': "Please Provide Correct OTP !",}, 'warning')
+            return redirect("/Register")
 
 @App.route("/DA-1")
 @App.route("/DA-2")
@@ -139,10 +160,10 @@ def contact():
         email = request.form['email']
         subject = request.form['subject']
         message = request.form['message']
-        if contact_db.find_one(filter={'email' : f'{email}'}) == None:          
+        if contact_db.find_one(filter={'email' : f'{email}'}) == None:  
             if is_valid(email):
                 contact_db.insert_one( {'date_time' : f'{datetime.now()}' , 'name' : f'{name}' , 'email' : f'{email}' , 'subject' : f'{subject}' , 'message' : f'{message}' } )
-                send_email(name,email,subject,message,other=True)
+                send_email(name,email,subject,message)
                 flash({'title': "Success", 'message': "Message Sent Successfully !"}, 'success')
             else:                
                 flash({'title': "Error", 'message': "Please Provide A Working Email !"}, 'error')
