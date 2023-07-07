@@ -24,7 +24,7 @@ def check_password(user,given,remember,source):
         user_object = User_info(user)
         login_user(user_object,remember=remember)
         flash({'title': "Success", 'message': "Login Successfull"}, 'success')
-        return redirect('/User-Profile/#profile-edit')
+        return redirect('/User-Profile')
     else:
         flash({'title': "Error", 'message': "Invalid Password !"}, 'error')
         return render_template('auth/login.html',value=user[f'{source}'])
@@ -223,7 +223,7 @@ def edit_profile():
 @login_required
 def edit_password():
     if request.method=="GET":
-        return redirect("/User-Profile/#profile-change-password")
+        return redirect("/User-Profile")
     elif request.method=="POST":
         current_password = request.form['password']
         new_password = bcrypt.generate_password_hash(request.form['newpassword']).decode()
@@ -236,7 +236,7 @@ def edit_password():
                 return redirect("/User-Profile")
             else:
                 flash({'title': "Error", 'message': "Wrong Current Password Entered !<br>Please Provide Correct Current Password."}, 'error')
-                return redirect("/User-Profile/#profile-change-password")
+                return redirect("/User-Profile")
         else:
             flash({'title': "Error", 'message': "Something Went Wrong"}, 'error')
             return redirect("/User-Profile")
