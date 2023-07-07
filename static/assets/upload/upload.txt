@@ -1,0 +1,4 @@
+This Folder Contains images from user for saving to database as encoded images.
+Don't delete this folder as it is used for intermediate process.
+
+Himanshu Mahajan
