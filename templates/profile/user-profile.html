@@ -21,16 +21,19 @@
 
                 <div class="card">
                     <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-
-                        <img src="{{ url_for('static',filename = 'assets/img/testimonials/testimonials-1.png')}}"
-                            alt="Profile" class="rounded-circle" style="height: 200px;width: 200px;">
+                        {% if current_user.image=="" %}
+                        <i class='bx bx-user-circle rounded-circle' style="font-size: 250px;color: rgba(1, 41, 112, 0.5);"></i>
+                        {% else %}
+                        <img src="data:image/png;base64, {{current_user.image}}" alt="Profile" class="rounded-circle" style="height: 200px;width: 200px;">
+                        {% endif %}
                         <h2>{{current_user.name}}</h2>
-                        <h3>Data Analyst</h3>
+                        <h3>{{current_user.job}}</h3>
                         <div class="social-links mt-2">
-                            <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
-                            <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
-                            <a href="#" class="instagram"><i class="bi bi-instagram"></i></a>
-                            <a href="#" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                            <a href="{{current_user.twitter}}" class="twitter"><i class="bi bi-twitter"></i></a>
+                            <a href="{{current_user.facebook}}" class="facebook"><i class="bi bi-facebook"></i></a>
+                            <a href="{{current_user.instagram}}" class="instagram"><i class="bi bi-instagram"></i></a>
+                            <a href="{{current_user.linkedin}}" class="linkedin"><i class="bi bi-linkedin"></i></a>
+                            <a href="{{current_user.github}}" class="github"><i class="bi bi-github"></i></a>
                         </div>
                     </div>
                 </div>
@@ -69,10 +72,7 @@
 
                             <div class="tab-pane fade show active profile-overview" id="profile-overview">
                                 <h5 class="card-title">About</h5>
-                                <p class="small fst-italic">SBSSU 25 ' 🎓 || DATA ANALYST || MACHINE LEARNING || DEEP LEARNING || PYTHON || FLASK || ALWAYS READY TO LEARN !<br>
-                                    Computer Science Student at SBSSU || Self Taught Python Programmer With 3+ Years Of Experience || Always ready to thrive in demanding 
-                                    digital intelligence processing environments. Well-informed on latest machine learning advancements. Ready to combine tireless hunger for 
-                                    new skills with desire to exploit cutting-edge data science technology.
+                                <p class="small fst-italic">{{current_user.about}}
                                 </p>
 
                                 <h5 class="card-title">Profile Details</h5>
@@ -84,27 +84,27 @@
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label">Company</div>
-                                    <div class="col-lg-9 col-md-8">Data Analysis With Himanshu</div>
+                                    <div class="col-lg-9 col-md-8">{{current_user.company}}</div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label">Job</div>
-                                    <div class="col-lg-9 col-md-8">Data Analyst</div>
+                                    <div class="col-lg-9 col-md-8">{{current_user.job}}</div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label">Country</div>
-                                    <div class="col-lg-9 col-md-8">India</div>
+                                    <div class="col-lg-9 col-md-8">{{current_user.country}}</div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label">Address</div>
-                                    <div class="col-lg-9 col-md-8">Pathankot,Punjab,India 145001</div>
+                                    <div class="col-lg-9 col-md-8">{{current_user.address}}</div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-4 label">Phone</div>
-                                    <div class="col-lg-9 col-md-8">99XX88XX77</div>
+                                    <div class="col-lg-9 col-md-8">{{current_user.phone}}</div>
                                 </div>
 
                                 <div class="row">
@@ -117,17 +117,23 @@
                             <div class="tab-pane fade profile-edit pt-3" id="profile-edit">
 
                                 <!-- Profile Edit Form -->
-                                <form>
+                                <form action="/User-Profile/Edit-Profile" method="post" enctype="multipart/form-data">
                                     <div class="row mb-3">
                                         <label for="profileImage" class="col-md-4 col-lg-3 col-form-label">Profile
                                             Image</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <img src="{{ url_for('static',filename = 'assets/img/testimonials/testimonials-1.png')}}" alt="Profile">
+                                            {% if current_user.image=="" %}
+                                            <i class='bx bx-user-plus rounded-circle' style="font-size: 100px;color: rgba(1, 41, 112, 0.5);"></i>
+                                            {% else %}
+                                            <img src="data:image/png;base64, {{current_user.image}}" alt="Profile">
+                                            {% endif %}
                                             <div class="pt-2">
-                                                <a href="#" class="btn btn-primary btn-sm"
-                                                    title="Upload new profile image"><i class="bi bi-upload"></i></a>
-                                                <a href="#" class="btn btn-danger btn-sm"
-                                                    title="Remove my profile image"><i class="bi bi-trash"></i></a>
+                                                
+                                                <input class="btn btn-light btn-sm "
+                                                    title="Upload new profile Image" type="file" name="image">
+                                                <!-- <input class="btn btn-primary btn-sm "
+                                                    title="Upload New Profile Image" type="submit" name="submit"> -->
+                                               
                                             </div>
                                         </div>
                                     </div>
@@ -135,68 +141,72 @@
                                     <div class="row mb-3">
                                         <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="fullName" type="text" class="form-control" id="fullName"
-                                                value="Himanshu Mahajan">
+                                            <input name="fullName" type="text" required class="form-control" id="fullName"
+                                                value="{{current_user.name}}">
                                         </div>
                                     </div>
 
                                     <div class="row mb-3">
-                                        <label for="about" class="col-md-4 col-lg-3 col-form-label">About</label>
+                                        <label for="user_about" class="col-md-4 col-lg-3 col-form-label">About</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <textarea name="about" class="form-control" id="about"
-                                                style="height: 100px">SBSSU 25 ' 🎓 || DATA ANALYST || MACHINE LEARNING || DEEP LEARNING || PYTHON || FLASK || ALWAYS READY TO LEARN !<br>
-                                                Computer Science Student at SBSSU || Self Taught Python Programmer With 3+ Years Of Experience || Always ready to thrive in demanding 
-                                                digital intelligence processing environments. Well-informed on latest machine learning advancements. Ready to combine tireless hunger for 
-                                                new skills with desire to exploit cutting-edge data science technology.
-                                            </textarea>
+                                            <textarea name="about" required class="form-control" id="user_about"
+                                                style="height: 70px" >{{current_user.about}}</textarea>
                                         </div>
                                     </div>
 
                                     <div class="row mb-3">
                                         <label for="company" class="col-md-4 col-lg-3 col-form-label">Company</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="company" type="text" class="form-control" id="company"
-                                                value="Data Analysis With Himanshu">
+                                            <input name="company" type="text" required class="form-control" id="company"
+                                                value="{{current_user.company}}" >
                                         </div>
                                     </div>
 
                                     <div class="row mb-3">
                                         <label for="Job" class="col-md-4 col-lg-3 col-form-label">Job</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="job" type="text" class="form-control" id="Job"
-                                                value="Data Analyst">
+                                            <input name="job" type="text" required class="form-control" id="Job"
+                                                value="{{current_user.job}}" >
                                         </div>
                                     </div>
 
                                     <div class="row mb-3">
                                         <label for="Country" class="col-md-4 col-lg-3 col-form-label">Country</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="country" type="text" class="form-control" id="Country"
-                                                value="India">
+                                            <input name="country" type="text" required class="form-control" id="Country"
+                                                value="{{current_user.country}}" >
                                         </div>
                                     </div>
 
                                     <div class="row mb-3">
                                         <label for="Address" class="col-md-4 col-lg-3 col-form-label">Address</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="address" type="text" class="form-control" id="Address"
-                                                value="Pathankot,Punjab,India 145001">
+                                            <input name="address" type="text" required class="form-control" id="Address"
+                                                value="{{current_user.address}}">
                                         </div>
                                     </div>
 
                                     <div class="row mb-3">
                                         <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="phone" type="text" class="form-control" id="Phone"
-                                                value="99XX88XX77">
+                                            <input name="phone" type="text" required class="form-control" id="Phone"
+                                                value="{{current_user.phone}}" >
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="Username" class="col-md-4 col-lg-3 col-form-label">Username</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            <input name="username" type="text" required class="form-control" id="Username"
+                                                value="{{current_user.username}}" disabled>
                                         </div>
                                     </div>
 
                                     <div class="row mb-3">
                                         <label for="Email" class="col-md-4 col-lg-3 col-form-label">Email</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="email" type="email" class="form-control" id="Email"
-                                                value="himanshumahajan138@gmail.com">
+                                            <input name="email" type="email" required class="form-control" id="Email"
+                                                value="{{current_user.email}}" disabled>
                                         </div>
                                     </div>
 
@@ -204,8 +214,8 @@
                                         <label for="Twitter" class="col-md-4 col-lg-3 col-form-label">Twitter
                                             Profile</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="twitter" type="text" class="form-control" id="Twitter"
-                                                value="https://twitter.com/#">
+                                            <input name="twitter" type="url" required class="form-control" id="Twitter"
+                                                value="{{current_user.twitter}}" >
                                         </div>
                                     </div>
 
@@ -213,8 +223,8 @@
                                         <label for="Facebook" class="col-md-4 col-lg-3 col-form-label">Facebook
                                             Profile</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="facebook" type="text" class="form-control" id="Facebook"
-                                                value="https://facebook.com/#">
+                                            <input name="facebook" type="url" required class="form-control" id="Facebook"
+                                                value="{{current_user.facebook}}" >
                                         </div>
                                     </div>
 
@@ -222,8 +232,8 @@
                                         <label for="Instagram" class="col-md-4 col-lg-3 col-form-label">Instagram
                                             Profile</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="instagram" type="text" class="form-control" id="Instagram"
-                                                value="https://instagram.com/#">
+                                            <input name="instagram" type="url" required class="form-control" id="Instagram"
+                                                value="{{current_user.instagram}}" >
                                         </div>
                                     </div>
 
@@ -231,8 +241,17 @@
                                         <label for="Linkedin" class="col-md-4 col-lg-3 col-form-label">Linkedin
                                             Profile</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="linkedin" type="text" class="form-control" id="Linkedin"
-                                                value="https://linkedin.com/#">
+                                            <input name="linkedin" type="url" required class="form-control" id="Linkedin"
+                                                value="{{current_user.linkedin}}" >
+                                        </div>
+                                    </div>
+
+                                    <div class="row mb-3">
+                                        <label for="Github" class="col-md-4 col-lg-3 col-form-label">Github
+                                            Profile</label>
+                                        <div class="col-md-8 col-lg-9">
+                                            <input name="github" type="url"  required class="form-control" id="Github"
+                                                value="{{current_user.github}}" >
                                         </div>
                                     </div>
 
@@ -246,7 +265,7 @@
                             <div class="tab-pane fade pt-3" id="profile-settings">
 
                                 <!-- Settings Form -->
-                                <form>
+                                <form action="/User-Profile/Edit-Settings" method="post">
 
                                     <div class="row mb-3">
                                         <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Email
@@ -254,27 +273,27 @@
                                         <div class="col-md-8 col-lg-9">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" id="changesMade"
-                                                    checked>
+                                                    checked {{True if "checked" else False}}>
                                                 <label class="form-check-label" for="changesMade">
                                                     Changes made to your account
                                                 </label>
                                             </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" id="newProducts"
-                                                    checked>
+                                                    checked {{True if "checked" else False}}>
                                                 <label class="form-check-label" for="newProducts">
                                                     Information on new products and services
                                                 </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="proOffers">
+                                                <input class="form-check-input" type="checkbox" id="proOffers" checked {{True if "checked" else False}}>
                                                 <label class="form-check-label" for="proOffers">
                                                     Marketing and promo offers
                                                 </label>
                                             </div>
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" id="securityNotify"
-                                                    checked disabled>
+                                                    checked disabled {{True if "checked" else False}}>
                                                 <label class="form-check-label" for="securityNotify">
                                                     Security alerts
                                                 </label>
@@ -291,14 +310,14 @@
 
                             <div class="tab-pane fade pt-3" id="profile-change-password">
                                 <!-- Change Password Form -->
-                                <form>
+                                <form action="/User-Profile/Edit-Password" method="post">
 
                                     <div class="row mb-3">
                                         <label for="currentPassword" class="col-md-4 col-lg-3 col-form-label">Current
                                             Password</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input name="password" type="password" class="form-control"
-                                                id="currentPassword">
+                                                id="currentPassword" required>
                                         </div>
                                     </div>
 
@@ -307,18 +326,18 @@
                                             Password</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input name="newpassword" type="password" class="form-control"
-                                                id="newPassword">
+                                                id="newPassword" required>
                                         </div>
                                     </div>
 
-                                    <div class="row mb-3">
+                                    <!-- <div class="row mb-3">
                                         <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New
                                             Password</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input name="renewpassword" type="password" class="form-control"
-                                                id="renewPassword">
+                                                id="renewPassword" required>
                                         </div>
-                                    </div>
+                                    </div> -->
 
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-primary">Change Password</button>

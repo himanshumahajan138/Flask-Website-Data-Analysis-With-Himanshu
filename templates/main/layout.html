@@ -105,16 +105,20 @@
           <li><a class="nav-link scrollto" href="/#contact">Contact</a></li>
           {% if current_user.is_authenticated %}
           <li class="dropdown" style="justify-content: left;">
-            <a class="nav-link pe-0" href="#" data-bs-toggle="dropdown">
-              <img src="{{ url_for('static',filename = 'assets/img/testimonials/testimonials-1.png')}}" alt="Profile"
+            <a class="nav-link" href="#" data-bs-toggle="dropdown">
+              {% if current_user.image=="" %}
+              <i class='bx bx-user rounded-circle' style="font-size: 25px;"></i>
+              {% else %}
+              <img src="data:image/png;base64, {{current_user.image}}" alt="Profile"
                 class="rounded-circle" style="height: 30px;width: 30px;">
+              {% endif %}
               <span class="dropdown-toggle ps-2">{{current_user.name}}</span>
             </a><!-- End Profile Iamge Icon -->
 
             <ul class="dropdown-menu ">
               <li class="dropdown-header">
                 <h6>{{current_user.name}}</h6>
-                <span>Data Analyst</span>
+                <span>{{current_user.job}}</span>
               </li>
 
               <li>

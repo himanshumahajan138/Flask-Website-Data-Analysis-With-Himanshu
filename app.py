@@ -3,13 +3,14 @@ from flask_bcrypt import Bcrypt
 from flask_login import login_user,LoginManager,login_required,logout_user,current_user
 from pymongo.mongo_client import MongoClient
 from pymongo.server_api import ServerApi
-import os,random
+import os,random,codecs
 from datetime import datetime,timedelta
 from dotenv import load_dotenv
 from flask_toastr import Toastr
-from users import User
+from users import User,User_info
 from static.forms.contact import is_valid,send_email
 from bson.objectid import ObjectId
+from fileinput import filename
 
 def connection_result(client):
     try:
@@ -20,10 +21,10 @@ def connection_result(client):
     
 def check_password(user,given,remember,source):
     if bcrypt.check_password_hash(user['password'],given):
-        user_object = User(user)
+        user_object = User_info(user)
         login_user(user_object,remember=remember)
         flash({'title': "Success", 'message': "Login Successfull"}, 'success')
-        return redirect('/')
+        return redirect('/User-Profile#profile-edit')
     else:
         flash({'title': "Error", 'message': "Invalid Password !"}, 'error')
         return render_template('auth/login.html',value=user[f'{source}'])
@@ -57,7 +58,7 @@ def load_user(user_id):
         finally:
             id = ObjectId(user_id)
             user_doc = auth_db.find_one(filter={'_id':id})
-            user_obj = User(user_document=user_doc)
+            user_obj = User_info(user_document=user_doc)
             return user_obj
 
 @App.before_request
@@ -188,7 +189,60 @@ def contact():
 @App.route("/User-Profile")
 @login_required
 def profile():
-    return render_template('profile/user-profile.html')
+    return render_template("profile/user-profile.html")
+
+@App.route("/User-Profile/Edit-Profile",methods=["GET","POST"])
+@login_required
+def edit_profile():
+    if request.method=="GET":
+        return redirect("/User-Profile#profile-edit")
+    elif request.method=="POST":
+        id = ObjectId(session['_user_id'])
+        
+        image,name,about,company,job,country,address,phone,twitter,facebook,instagram,linkedin,github = \
+            request.files['image'],request.form['fullName'],request.form['about'],request.form['company'],\
+            request.form['job'],request.form['country'],request.form['address'],request.form['phone'],\
+            request.form['twitter'],request.form['facebook'],request.form['instagram'],request.form['linkedin'],request.form['github']
+        
+        image.save(f"static/assets/upload/{image.filename}")
+        
+        with open(f"static/assets/upload/{image.filename}", "rb") as imageFile:
+            encoded_image = codecs.encode(imageFile.read(),encoding="base64")
+        decoded_image=encoded_image.decode()
+        
+        auth_db.find_one_and_update(filter={'_id':id},
+                                    update={'$set':{'image':f'{decoded_image}','name':f'{name}','about':f'{about}','company':f'{company}',
+                                            'job':f'{job}','country':f'{country}','address':f'{address}','phone':f'{phone}',
+                                            'twitter':f'{twitter}','facebook':f'{facebook}','instagram':f'{instagram}',
+                                            'linkedin':f'{linkedin}','github':f'{github}'}})
+        
+        flash({'title': "Success", 'message': "Profile Updated Successfully!"}, 'success')
+        return redirect("/User-Profile")
+
+@App.route("/User-Profile/Edit-Password",methods=["GET","POST"])
+@login_required
+def edit_password():
+    if request.method=="GET":
+        return redirect("/User-Profile#profile-change-password")
+    elif request.method=="POST":
+        current_password = request.form['password']
+        new_password = bcrypt.generate_password_hash(request.form['newpassword']).decode()
+        # renew_password = request['renewpassword']
+        id = ObjectId(session['_user_id'])
+        user = auth_db.find_one(filter={"_id":id})
+        if user!=None:
+            if bcrypt.check_password_hash(user['password'],current_password):
+                # if new_password==renew_password:
+                auth_db.find_one_and_update(filter={"_id":id},update={'$set':{'password':f'{new_password}'}})
+                flash({'title': "Success", 'message': "Password Changed Successfully!"}, 'success')
+                return redirect("/User-Profile")
+            else:
+                flash({'title': "Error", 'message': "Wrong Current Password Entered !<br>Please Provide Correct Current Password."}, 'error')
+                return redirect("/User-Profile#profile-change-password")
+        else:
+            flash({'title': "Error", 'message': "Something Went Wrong"}, 'error')
+            return redirect("/User-Profile")
+
 
 @App.route("/Logout")
 @login_required
