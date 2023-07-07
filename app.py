@@ -24,7 +24,7 @@ def check_password(user,given,remember,source):
         user_object = User_info(user)
         login_user(user_object,remember=remember)
         flash({'title': "Success", 'message': "Login Successfull"}, 'success')
-        return redirect('/User-Profile#profile-edit')
+        return redirect('/User-Profile/#profile-edit')
     else:
         flash({'title': "Error", 'message': "Invalid Password !"}, 'error')
         return render_template('auth/login.html',value=user[f'{source}'])
@@ -64,7 +64,7 @@ def load_user(user_id):
 @App.before_request
 def session_handler():
     session.permanent = True
-    App.permanent_session_lifetime = timedelta(minutes=1)
+    # App.permanent_session_lifetime = timedelta(minutes=1)
 
 
 @App.route("/")
@@ -195,7 +195,7 @@ def profile():
 @login_required
 def edit_profile():
     if request.method=="GET":
-        return redirect("/User-Profile#profile-edit")
+        return redirect("/User-Profile")
     elif request.method=="POST":
         id = ObjectId(session['_user_id'])
         
@@ -223,26 +223,32 @@ def edit_profile():
 @login_required
 def edit_password():
     if request.method=="GET":
-        return redirect("/User-Profile#profile-change-password")
+        return redirect("/User-Profile/#profile-change-password")
     elif request.method=="POST":
         current_password = request.form['password']
         new_password = bcrypt.generate_password_hash(request.form['newpassword']).decode()
-        # renew_password = request['renewpassword']
         id = ObjectId(session['_user_id'])
         user = auth_db.find_one(filter={"_id":id})
         if user!=None:
             if bcrypt.check_password_hash(user['password'],current_password):
-                # if new_password==renew_password:
                 auth_db.find_one_and_update(filter={"_id":id},update={'$set':{'password':f'{new_password}'}})
                 flash({'title': "Success", 'message': "Password Changed Successfully!"}, 'success')
                 return redirect("/User-Profile")
             else:
                 flash({'title': "Error", 'message': "Wrong Current Password Entered !<br>Please Provide Correct Current Password."}, 'error')
-                return redirect("/User-Profile#profile-change-password")
+                return redirect("/User-Profile/#profile-change-password")
         else:
             flash({'title': "Error", 'message': "Something Went Wrong"}, 'error')
             return redirect("/User-Profile")
 
+# @App.route("/User-Profile/Edit-Settings",methods=["GET","POST"])
+# @login_required
+# def edit_notifications():
+#     if request.method=="GET":
+#         return redirect("/User-Profile/#profile-settings")
+#     elif request.method=="POST":
+#         id = ObjectId(session['_user_id'])
+#         auth_db.find_one_and_update(filter={'_id':id},update={"$set":{'changesmade':f'{request.form["changesmade"]}','newproducts'}})
 
 @App.route("/Logout")
 @login_required

@@ -22,9 +22,11 @@
                 <div class="card">
                     <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
                         {% if current_user.image=="" %}
-                        <i class='bx bx-user-circle rounded-circle' style="font-size: 250px;color: rgba(1, 41, 112, 0.5);"></i>
+                        <i class='bx bx-user-circle rounded-circle'
+                            style="font-size: 250px;color: rgba(1, 41, 112, 0.5);"></i>
                         {% else %}
-                        <img src="data:image/png;base64, {{current_user.image}}" alt="Profile" class="rounded-circle" style="height: 200px;width: 200px;">
+                        <img src="data:image/png;base64, {{current_user.image}}" alt="Profile" class="rounded-circle"
+                            style="height: 200px;width: 200px;">
                         {% endif %}
                         <h2>{{current_user.name}}</h2>
                         <h3>{{current_user.job}}</h3>
@@ -123,17 +125,15 @@
                                             Image</label>
                                         <div class="col-md-8 col-lg-9">
                                             {% if current_user.image=="" %}
-                                            <i class='bx bx-user-plus rounded-circle' style="font-size: 100px;color: rgba(1, 41, 112, 0.5);"></i>
+                                            <i class='bx bx-user-plus rounded-circle'
+                                                style="font-size: 100px;color: rgba(1, 41, 112, 0.5);"></i>
                                             {% else %}
                                             <img src="data:image/png;base64, {{current_user.image}}" alt="Profile">
                                             {% endif %}
                                             <div class="pt-2">
-                                                
-                                                <input class="btn btn-light btn-sm "
-                                                    title="Upload new profile Image" type="file" name="image">
-                                                <!-- <input class="btn btn-primary btn-sm "
-                                                    title="Upload New Profile Image" type="submit" name="submit"> -->
-                                               
+
+                                                <input class="btn btn-light btn-sm " title="Upload new profile Image"
+                                                    type="file" name="image">
                                             </div>
                                         </div>
                                     </div>
@@ -141,8 +141,8 @@
                                     <div class="row mb-3">
                                         <label for="fullName" class="col-md-4 col-lg-3 col-form-label">Full Name</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="fullName" type="text" required class="form-control" id="fullName"
-                                                value="{{current_user.name}}">
+                                            <input name="fullName" type="text" required class="form-control"
+                                                id="fullName" value="{{current_user.name}}">
                                         </div>
                                     </div>
 
@@ -150,7 +150,7 @@
                                         <label for="user_about" class="col-md-4 col-lg-3 col-form-label">About</label>
                                         <div class="col-md-8 col-lg-9">
                                             <textarea name="about" required class="form-control" id="user_about"
-                                                style="height: 70px" >{{current_user.about}}</textarea>
+                                                style="height: 70px">{{current_user.about}}</textarea>
                                         </div>
                                     </div>
 
@@ -158,7 +158,7 @@
                                         <label for="company" class="col-md-4 col-lg-3 col-form-label">Company</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input name="company" type="text" required class="form-control" id="company"
-                                                value="{{current_user.company}}" >
+                                                value="{{current_user.company}}">
                                         </div>
                                     </div>
 
@@ -166,7 +166,7 @@
                                         <label for="Job" class="col-md-4 col-lg-3 col-form-label">Job</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input name="job" type="text" required class="form-control" id="Job"
-                                                value="{{current_user.job}}" >
+                                                value="{{current_user.job}}">
                                         </div>
                                     </div>
 
@@ -174,7 +174,7 @@
                                         <label for="Country" class="col-md-4 col-lg-3 col-form-label">Country</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input name="country" type="text" required class="form-control" id="Country"
-                                                value="{{current_user.country}}" >
+                                                value="{{current_user.country}}">
                                         </div>
                                     </div>
 
@@ -190,15 +190,15 @@
                                         <label for="Phone" class="col-md-4 col-lg-3 col-form-label">Phone</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input name="phone" type="text" required class="form-control" id="Phone"
-                                                value="{{current_user.phone}}" >
+                                                value="{{current_user.phone}}">
                                         </div>
                                     </div>
 
                                     <div class="row mb-3">
                                         <label for="Username" class="col-md-4 col-lg-3 col-form-label">Username</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="username" type="text" required class="form-control" id="Username"
-                                                value="{{current_user.username}}" disabled>
+                                            <input name="username" type="text" required class="form-control"
+                                                id="Username" value="{{current_user.username}}" disabled>
                                         </div>
                                     </div>
 
@@ -215,7 +215,7 @@
                                             Profile</label>
                                         <div class="col-md-8 col-lg-9">
                                             <input name="twitter" type="url" required class="form-control" id="Twitter"
-                                                value="{{current_user.twitter}}" >
+                                                value="{{current_user.twitter}}">
                                         </div>
                                     </div>
 
@@ -223,8 +223,8 @@
                                         <label for="Facebook" class="col-md-4 col-lg-3 col-form-label">Facebook
                                             Profile</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="facebook" type="url" required class="form-control" id="Facebook"
-                                                value="{{current_user.facebook}}" >
+                                            <input name="facebook" type="url" required class="form-control"
+                                                id="Facebook" value="{{current_user.facebook}}">
                                         </div>
                                     </div>
 
@@ -232,8 +232,8 @@
                                         <label for="Instagram" class="col-md-4 col-lg-3 col-form-label">Instagram
                                             Profile</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="instagram" type="url" required class="form-control" id="Instagram"
-                                                value="{{current_user.instagram}}" >
+                                            <input name="instagram" type="url" required class="form-control"
+                                                id="Instagram" value="{{current_user.instagram}}">
                                         </div>
                                     </div>
 
@@ -241,8 +241,8 @@
                                         <label for="Linkedin" class="col-md-4 col-lg-3 col-form-label">Linkedin
                                             Profile</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="linkedin" type="url" required class="form-control" id="Linkedin"
-                                                value="{{current_user.linkedin}}" >
+                                            <input name="linkedin" type="url" required class="form-control"
+                                                id="Linkedin" value="{{current_user.linkedin}}">
                                         </div>
                                     </div>
 
@@ -250,8 +250,8 @@
                                         <label for="Github" class="col-md-4 col-lg-3 col-form-label">Github
                                             Profile</label>
                                         <div class="col-md-8 col-lg-9">
-                                            <input name="github" type="url"  required class="form-control" id="Github"
-                                                value="{{current_user.github}}" >
+                                            <input name="github" type="url" required class="form-control" id="Github"
+                                                value="{{current_user.github}}">
                                         </div>
                                     </div>
 
@@ -272,27 +272,28 @@
                                             Notifications</label>
                                         <div class="col-md-8 col-lg-9">
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="changesMade"
-                                                    checked {{True if "checked" else False}}>
+                                                <input class="form-check-input" type="checkbox" name="changesmade" id="changesMade" checked
+                                                    {{True if "checked" else False}}>
                                                 <label class="form-check-label" for="changesMade">
                                                     Changes made to your account
                                                 </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="newProducts"
-                                                    checked {{True if "checked" else False}}>
+                                                <input class="form-check-input" type="checkbox" name="newproducts" id="newProducts" checked
+                                                    {{True if "checked" else False}}>
                                                 <label class="form-check-label" for="newProducts">
                                                     Information on new products and services
                                                 </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="proOffers" checked {{True if "checked" else False}}>
+                                                <input class="form-check-input" type="checkbox" name="prooffers" id="proOffers" checked
+                                                    {{True if "checked" else False}}>
                                                 <label class="form-check-label" for="proOffers">
                                                     Marketing and promo offers
                                                 </label>
                                             </div>
                                             <div class="form-check">
-                                                <input class="form-check-input" type="checkbox" id="securityNotify"
+                                                <input class="form-check-input" type="checkbox" name="securitynotify" id="securityNotify"
                                                     checked disabled {{True if "checked" else False}}>
                                                 <label class="form-check-label" for="securityNotify">
                                                     Security alerts
@@ -329,28 +330,14 @@
                                                 id="newPassword" required>
                                         </div>
                                     </div>
-
-                                    <!-- <div class="row mb-3">
-                                        <label for="renewPassword" class="col-md-4 col-lg-3 col-form-label">Re-enter New
-                                            Password</label>
-                                        <div class="col-md-8 col-lg-9">
-                                            <input name="renewpassword" type="password" class="form-control"
-                                                id="renewPassword" required>
-                                        </div>
-                                    </div> -->
-
                                     <div class="text-center">
                                         <button type="submit" class="btn btn-primary">Change Password</button>
                                     </div>
                                 </form><!-- End Change Password Form -->
-
                             </div>
-
                         </div><!-- End Bordered Tabs -->
-
                     </div>
                 </div>
-
             </div>
         </div>
     </section>
